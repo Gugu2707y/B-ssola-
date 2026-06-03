@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>B-ssola - Painel Escolar Permanente</title>
+    <title>B-ssola - Agenda Escolar Inteligente</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,17 +17,19 @@
         .header-actions { display: flex; gap: 12px; align-items: center; }
         
         .toggle-btn-label { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; font-weight: 600; cursor: pointer; background: #f1f5f9; padding: 8px 14px; border-radius: 10px; user-select: none; }
-        .toggle-btn-label input { cursor: pointer; }
         .btn-action-icon { background: #f1f5f9; border: none; width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; color: #475569; }
-        .btn-logout { background: #fef2f2; color: #ef4444; }
+        
+        /* 🔔 Banner Superior Multi-Status */
+        .status-alert-banner { background: #e0f2fe; border: 1px solid #bae6fd; padding: 16px; border-radius: 16px; color: #0369a1; font-size: 0.95rem; display: flex; align-items: center; gap: 12px; font-weight: 500; transition: all 0.2s; }
 
-        .status-alert-banner { background: #e0f2fe; border: 1px solid #bae6fd; padding: 16px; border-radius: 16px; color: #0369a1; font-size: 0.95rem; display: flex; align-items: center; gap: 12px; }
-
-        .week-selector-grid { display: flex; gap: 12px; width: 100%; }
-        .week-day-card { flex: 1; background: white; padding: 14px; border-radius: 16px; text-align: center; cursor: pointer; border: 2px solid transparent; box-shadow: 0 4px 10px rgba(0,0,0,0.01); }
+        /* 📅 Grade de Navegação Rápida Semana/Dias */
+        .week-nav-container { display: flex; align-items: center; gap: 8px; width: 100%; }
+        .week-selector-grid { display: flex; gap: 12px; flex: 1; }
+        .week-day-card { flex: 1; background: white; padding: 14px; border-radius: 16px; text-align: center; cursor: pointer; border: 2px solid transparent; box-shadow: 0 4px 10px rgba(0,0,0,0.01); transition: all 0.2s; }
         .week-day-card small { font-size: 0.75rem; color: #64748b; font-weight: 600; text-transform: uppercase; }
         .week-day-card h3 { font-size: 1.4rem; font-weight: 700; margin-top: 4px; }
         .week-day-card.active { background: #3b82f6; color: white; box-shadow: 0 8px 20px rgba(59, 130, 246, 0.25); }
+        .week-day-card.active small { color: rgba(255,255,255,0.8); }
 
         .dashboard-columns { display: flex; gap: 20px; width: 100%; }
         .column-left { flex: 2; display: flex; flex-direction: column; gap: 16px; }
@@ -38,28 +40,30 @@
         .tag-blue { color: #3b82f6; } .tag-yellow { color: #b45309; }
 
         .progress-bar-wrapper { background: #f1f5f9; height: 8px; border-radius: 10px; margin: 14px 0 6px 0; overflow: hidden; }
-        .progress-bar-fill { background: #3b82f6; height: 100%; width: 0%; transition: width 0.5s linear; }
+        .progress-bar-fill { background: #3b82f6; height: 100%; width: 0%; transition: width 0.3s linear; }
 
         .timeline-container { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
-        .timeline-event-item { padding: 12px 16px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; display: flex; justify-content: space-between; align-items: center; }
-        .timeline-event-item.active { border-color: #3b82f6; background: #eff6ff; }
+        .timeline-event-item { padding: 14px 16px; border-radius: 12px; border: 1px solid #e2e8f0; background: #f8fafc; display: flex; justify-content: space-between; align-items: center; transition: all 0.2s; }
+        .timeline-event-item.active { border-color: #3b82f6; background: #eff6ff; box-shadow: 0 4px 12px rgba(59,130,246,0.05); }
 
-        /* 🔥 Estilos do Calendário Anual Integrado */
+        /* ✍️ Painel de Edição Avançado (Muda Tudo) */
+        .edit-panel { display: none; background: #fff7ed; border: 2px dashed #f97316; padding: 20px; border-radius: 16px; margin-top: 16px; flex-direction: column; gap: 12px; }
+        .edit-panel.active { display: flex; }
+        .edit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .edit-field { display: flex; flex-direction: column; gap: 4px; }
+        .edit-field label { font-size: 0.75rem; font-weight: 700; color: #7c2d12; text-transform: uppercase; }
+        .edit-field input { padding: 8px 12px; border-radius: 8px; border: 1px solid #ffedd5; font-size: 0.88rem; background: white; }
+        .btn-save-box { background: #f97316; color: white; border: none; padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 6px; }
+
+        /* 📅 Mini Calendário Lateral */
         .datepicker-container { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 12px; margin-top: 16px; }
         .datepicker-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-weight: 700; font-size: 0.9rem; }
         .datepicker-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; text-align: center; font-size: 0.8rem; }
         .datepicker-day { padding: 6px; cursor: pointer; border-radius: 6px; color: #334155; }
-        .datepicker-day:hover { background: #e2e8f0; }
         .datepicker-day.selected { background: #3b82f6; color: white; font-weight: 700; }
         .datepicker-day.empty { cursor: default; background: transparent; }
 
-        /* ✍️ Estilos do Painel de Edição Dinâmica */
-        .edit-panel { display: none; background: #fff7ed; border: 1px dashed #f97316; padding: 16px; border-radius: 16px; margin-top: 16px; flex-direction: column; gap: 10px; }
-        .edit-panel.active { display: flex; }
-        .edit-row { display: flex; gap: 8px; align-items: center; }
-        .edit-row input { padding: 6px 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 0.85rem; width: 100%; }
-
-        body.focus-mode-active .column-right, body.focus-mode-active .week-selector-grid { display: none !important; }
+        body.focus-mode-active .column-right, body.focus-mode-active .week-nav-container { display: none !important; }
     </style>
 </head>
 <body>
@@ -71,61 +75,78 @@
                 <small><span class="material-symbols-outlined" style="font-size:16px;">calendar_today</span> <span id="textFullDate">Carregando data...</span></small>
             </div>
             <div class="header-actions">
-                <label class="toggle-btn-label"><input type="checkbox" id="checkEditMode"> Editar Aulas</label>
+                <label class="toggle-btn-label"><input type="checkbox" id="checkEditMode"> Configurar Matérias</label>
                 <label class="toggle-btn-label"><input type="checkbox" id="checkFocusMode"> Foco</label>
-                <button class="btn-action-icon btn-logout" onclick="window.location.href='index.html'"><span class="material-symbols-outlined">logout</span></button>
+                <button class="btn-action-icon" style="background:#fef2f2; color:#ef4444;" onclick="window.location.href='index.html'"><span class="material-symbols-outlined">logout</span></button>
             </div>
         </header>
 
         <div class="status-alert-banner" id="dashboardBanner">
-            <span class="material-symbols-outlined">location_on</span>
-            <span id="bannerText">Calculando rotina...</span>
+            <span class="material-symbols-outlined" id="bannerIcon">info</span>
+            <span id="bannerText">Calculando distância temporal...</span>
         </div>
 
-        <div class="week-selector-grid" id="weekContainer"></div>
+        <div class="week-nav-container">
+            <button class="btn-action-icon" id="btnPrevDay" style="width:45px; height:45px;"><span class="material-symbols-outlined">arrow_back</span></button>
+            <div class="week-selector-grid" id="weekContainer"></div>
+            <button class="btn-action-icon" id="btnNextDay" style="width:45px; height:45px;"><span class="material-symbols-outlined">arrow_forward</span></button>
+        </div>
 
         <div class="dashboard-columns">
             <div class="column-left">
                 <div class="info-block-card" id="nowCard">
                     <span class="block-tag tag-blue">📘 Agora</span>
-                    <h2 style="font-size:1.5rem; font-weight:700;" id="currentSubjectName">Nenhuma aula agora</h2>
+                    <h2 style="font-size:1.5rem; font-weight:700;" id="currentSubjectName">Verificando...</h2>
                     <p style="font-size:0.88rem; color:#64748b; margin-top:4px;" id="currentSubjectMeta">--</p>
                     
                     <div class="progress-bar-wrapper">
                         <div class="progress-bar-fill" id="currentProgressFill"></div>
                     </div>
-                    <small style="color:#2563eb; font-weight:600; font-size:0.85rem;" id="timeLeftText">Fora do horário letivo</small>
+                    <small style="color:#2563eb; font-weight:600; font-size:0.85rem;" id="timeLeftText">Calculando minutagem...</small>
                 </div>
 
                 <div class="info-block-card" style="border-left: 5px solid #eab308; background: #fffde6;">
-                    <span class="block-tag tag-yellow">🍕 A seguir</span>
-                    <h3 style="font-size:1.2rem; font-weight:700; color:#854d0e;" id="nextSubjectName">Intervalo ou Saída</h3>
+                    <span class="block-tag tag-yellow">🍕 Próxima Atividade</span>
+                    <h3 style="font-size:1.2rem; font-weight:700; color:#854d0e;" id="nextSubjectName">--</h3>
                     <p style="font-size:0.88rem; color:#854d0e; margin-top:2px;" id="nextSubjectMeta">--</p>
                 </div>
                 
                 <div class="edit-panel" id="editPanel">
-                    <h4 style="font-size:0.9rem; color:#c2410c; font-weight:700;">✍️ Alterar Matéria Selecionada</h4>
-                    <div class="edit-row">
-                        <input type="text" id="editInputName" placeholder="Nome da Matéria">
-                        <input type="text" id="editInputRoom" placeholder="Sala">
+                    <h4 style="font-size:0.9rem; color:#c2410c; font-weight:700; margin-bottom:8px;">✍️ Personalizar Esta Aula</h4>
+                    <div class="edit-grid">
+                        <div class="edit-field">
+                            <label>Nome da Matéria</label>
+                            <input type="text" id="editInputName">
+                        </div>
+                        <div class="edit-field">
+                            <label>Ambiente / Sala</label>
+                            <input type="text" id="editInputRoom">
+                        </div>
+                        <div class="edit-field">
+                            <label>Início (HH:MM)</label>
+                            <input type="text" id="editInputStart" placeholder="07:30">
+                        </div>
+                        <div class="edit-field">
+                            <label>Término (HH:MM)</label>
+                            <input type="text" id="editInputEnd" placeholder="08:20">
+                        </div>
                     </div>
-                    <button class="btn-primary" id="btnSaveEdit" style="padding:8px; font-size:0.85rem; background:#f97316;">Salvar Alteração</button>
+                    <button class="btn-save-box" id="btnSaveEdit">Salvar e Atualizar Dia</button>
                 </div>
             </div>
 
             <div class="column-right">
-                <h3 style="font-size:1.1rem; font-weight:700; margin-bottom:12px;">📅 Calendário do Ano (2026)</h3>
-                
+                <h3 style="font-size:1.1rem; font-weight:700; margin-bottom:12px;">📅 Calendário 2026</h3>
                 <div class="datepicker-container">
                     <div class="datepicker-header">
                         <button class="btn-action-icon" id="prevMonth" style="width:28px; height:28px;"><span class="material-symbols-outlined" style="font-size:16px;">chevron_left</span></button>
-                        <span id="calendarMonthYear">Junho de 2026</span>
+                        <span id="calendarMonthYear">--</span>
                         <button class="btn-action-icon" id="nextMonth" style="width:28px; height:28px;"><span class="material-symbols-outlined" style="font-size:16px;">chevron_right</span></button>
                     </div>
                     <div class="datepicker-grid" id="calendarDaysGrid"></div>
                 </div>
 
-                <h3 style="font-size:1.1rem; font-weight:700; margin-top:24px; margin-bottom:12px;">⏱️ Grade Horária</h3>
+                <h3 style="font-size:1.1rem; font-weight:700; margin-top:24px; margin-bottom:12px;">⏱️ Grade Completa</h3>
                 <div class="timeline-container" id="timelineContainer"></div>
             </div>
         </div>
