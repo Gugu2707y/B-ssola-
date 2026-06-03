@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🧭 Bússola</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%2250%22 x=%2250%%22 text-anchor=%22middle%22 font-size=%2255%22>🧭</text><text y=%2290%22 x=%2250%%22 text-anchor=%22middle%22 font-size=%2232%22 font-family=%22sans-serif%22 font-weight=%22bold%22 fill=%22%231e3a8a%22>Bússola</text></svg>">
+    
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -71,10 +72,19 @@
 
     <div class="dashboard-layout">
         <header class="dash-header">
-            <div class="header-left">
-                <h2 id="welcomeUserName">Olá, gugu2707y!</h2>
-                <small><span class="material-symbols-outlined" style="font-size:16px;">calendar_today</span> <span id="textFullDate">Carregando data...</span></small>
+            <div class="header-left" style="display: flex; align-items: center; gap: 16px;">
+                <div class="compass-wrapper" style="position: relative; width: 45px; height: 45px; background: #f1f5f9; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 2px solid #cbd5e1; box-shadow: 0 2px 8px rgba(0,0,0,0.05); flex-shrink: 0;">
+                    <div id="compassPointer" style="width: 4px; height: 32px; background: linear-gradient(to bottom, #ef4444 50%, #3b82f6 50%); border-radius: 2px; transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform: rotate(0deg);"></div>
+                    <small style="position: absolute; top: 2px; font-size: 8px; font-weight: 700; color: #94a3b8;">N</small>
+                    <small style="position: absolute; bottom: 2px; font-size: 8px; font-weight: 700; color: #94a3b8;">S</small>
+                </div>
+
+                <div>
+                    <h2 style="margin: 0; font-size: 1.4rem; font-weight: 700;">Olá, <span id="welcomeUserName">Usuário</span>!</h2>
+                    <small><span class="material-symbols-outlined" style="font-size:16px;">calendar_today</span> <span id="textFullDate">Carregando data...</span></small>
+                </div>
             </div>
+            
             <div class="header-actions">
                 <label class="toggle-btn-label"><input type="checkbox" id="checkEditMode"> Configurar Matérias</label>
                 <label class="toggle-btn-label"><input type="checkbox" id="checkFocusMode"> Foco</label>
