@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Senha</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-info">
+            <h1>Esqueceu suas credenciais?</h1>
+            <p>Insira seu e-mail cadastrado para redefinir as credenciais de segurança da sua agenda.</p>
+        </div>
+        <div class="auth-card">
+            <div class="logo-area"><div class="logo-box">📅</div></div>
+            <h2 style="text-align:center; margin-bottom:5px;">Recuperar Senha</h2>
+            <p style="text-align:center; font-size:0.85rem; color:var(--text-muted); margin-bottom:20px;">Digite seu e-mail para recuperar a senha</p>
+            <form id="recForm">
+                <div class="form-group">
+                    <label>✉️ E-mail</label>
+                    <div class="input-wrapper"><input type="email" required placeholder="seu@email.com"></div>
+                </div>
+                <button type="submit" class="btn-primary">➔ Enviar Link</button>
+            </form>
+            <p style="text-align:center; font-size:0.85rem; margin-top:20px;"><a href="index.html" style="color:var(--primary-color); text-decoration:none; font-weight:600;">Já tem uma conta? Fazer login</a></p>
+        </div>
+    </div>
+    <script>
+        document.getElementById('recForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Link de redefinição enviado para o e-mail informado.');
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>

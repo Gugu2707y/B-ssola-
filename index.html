@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda Escolar - Login</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <!-- Lado Esquerdo: Mensagem e Recursos -->
+        <div class="auth-info">
+            <h1>Organize seu dia com tranquilidade</h1>
+            <p>Um espaço pensado para você acompanhar suas atividades de forma clara e previsível.</p>
+            <div class="info-card">🕒 <div><strong>Acompanhe o tempo</strong><br><small>Veja quanto tempo falta para cada atividade</small></div></div>
+            <div class="info-card">🔔 <div><strong>Avisos claros</strong><br><small>Saiba com antecedência sobre mudanças</small></div></div>
+            <div class="info-card">👁️ <div><strong>Modo Foco</strong><br><small>Menos distrações quando precisar</small></div></div>
+        </div>
+
+        <!-- Lado Direito: Formulário de Autenticação -->
+        <div class="auth-card">
+            <div class="logo-area"><div class="logo-box">📅</div></div>
+            <h2 style="text-align:center; margin-bottom: 5px;">Bem-vindo(a)!</h2>
+            <p style="text-align:center; font-size:0.85rem; color:var(--text-muted); margin-bottom:20px;">Vamos começar o seu dia</p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>👤 Nome ou E-mail</label>
+                    <div class="input-wrapper"><input type="text" id="loginUser" placeholder="Digite seu nome ou e-mail" required></div>
+                </div>
+                <div class="form-group">
+                    <label>🔒 Senha</label>
+                    <div class="input-wrapper"><input type="password" id="loginPass" placeholder="Digite sua senha" required></div>
+                </div>
+                <div class="links-helper">
+                    <span></span>
+                    <a href="recuperar.html">Esqueceu a senha?</a>
+                </div>
+                <button type="submit" class="btn-primary">➔ Entrar com Segurança</button>
+            </form>
+            <p style="text-align:center; font-size:0.85rem; margin-top:20px;">Não tem uma conta? <a href="cadastro.html" style="color:var(--primary-color); font-weight:600; text-decoration:none;">Criar conta</a></p>
+            
+            <div class="footer-notice">☀️ <strong>Espaço seguro e organizado</strong><br>Aqui você encontra tudo sobre suas atividades.</div>
+        </div>
+    </div>
+    <script src="js/login.js"></script>
+</body>
+</html>
