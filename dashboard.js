@@ -1,17 +1,27 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // 1. Grade padrão de referência
+    
+    // ==========================================
+    // 👤 1. CONTROLE DE SESSÃO E LOGIN DINÂMICO
+    // ==========================================
+    const emailLogado = localStorage.getItem("usuarioEmail") || "Usuário";
+    
+    const campoNome = document.getElementById('welcomeUserName');
+    if (campoNome) {
+        campoNome.innerText = emailLogado;
+    }
+
+    // ==========================================
+    // 📅 2. CONFIGURAÇÕES INICIAIS DA GRADE
+    // ==========================================
     const gradePadrao = [
-        { h: '07:30 - 08:20', n: 'Português', l: 'Sala 12', inicio: '07:30', fim: '08:20' },
-        { h: '08:20 - 09:10', n: 'Matemática', l: 'Sala 12', inicio: '08:20', fim: '09:10' },
-        { h: '09:10 - 09:30', n: 'Intervalo', l: 'Pátio', inicio: '09:10', fim: '09:30' },
-        { h: '09:30 - 10:20', n: 'História', l: 'Sala 15', inicio: '09:30', fim: '10:20' },
-        { h: '10:20 - 11:10', n: 'Geografia', l: 'Sala 05', inicio: '10:20', fim: '11:10' }
+        { id: 1, h: '07:30 - 08:20', n: 'Português', l: 'Sala 12', inicio: '07:30', fim: '08:20' },
+        { id: 2, h: '08:20 - 09:10', n: 'Matemática', l: 'Sala 12', inicio: '08:20', fim: '09:10' },
+        { id: 3, h: '09:10 - 09:30', n: 'Intervalo', l: 'Pátio', inicio: '09:10', fim: '09:30' },
+        { id: 4, h: '09:30 - 10:20', n: 'História', l: 'Sala 15', inicio: '09:30', fim: '10:20' },
+        { id: 5, h: '10:20 - 11:10', n: 'Geografia', l: 'Sala 05', inicio: '10:20', fim: '11:10' }
     ];
 
-    // O hoje real do sistema
     const hojeReal = new Date();
-    
-    // Data de trabalho (Sincronizada no dia selecionado)
     let dataSelecionada = new Date(hojeReal.getFullYear(), hojeReal.getMonth(), hojeReal.getDate());
     let mesVisualizacao = dataSelecionada.getMonth();
     let anoVisualizacao = dataSelecionada.getFullYear();
@@ -20,7 +30,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const nomesDias = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
     const nomesMeses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 
-    // 2. SISTEMA DE BANCO DE DADOS LOCAL STORAGE (Por data do ano)
+    // ==========================================
+    // 💾 3. GERENCIAMENTO DE ARMAZENAMENTO LOCAL
+    // ==========================================
     function obterGradeDoDia(dataIso) {
         const dadosSalvos = localStorage.getItem(`grade-${dataIso}`);
         if (dadosSalvos) return JSON.parse(dadosSalvos);
@@ -31,20 +43,22 @@ document.addEventListener('DOMContentLoaded', function() {
         localStorage.setItem(`grade-${dataIso}`, JSON.stringify(novaGrade));
     }
 
-    // 3. MOTOR DE CONTROLE DO BANNER POR DISTÂNCIA DE DIAS (Seta Direita / Seta Esquerda)
+    // ==========================================
+    // 🔔 4. CONTROLE INTELIGENTE DO BANNER (Setas)
+    // ==========================================
     function gerenciarBannerTemporal(isoString) {
         const banner = document.getElementById('dashboardBanner');
         const bannerText = document.getElementById('bannerText');
         const icon = document.getElementById('bannerIcon');
 
-        // Normaliza as datas para calcular a diferença exata desconsiderando horas/minutos
+        if (!banner || !bannerText || !icon) return;
+
         const dAtual = new Date(hojeReal.getFullYear(), hojeReal.getMonth(), hojeReal.getDate());
         const dSelecionada = new Date(dataSelecionada.getFullYear(), dataSelecionada.getMonth(), dataSelecionada.getDate());
         
         const diferencaTempo = dSelecionada.getTime() - dAtual.getTime();
         const diferencaDias = Math.round(diferencaTempo / (1000 * 60 * 60 * 24));
 
-        // Verifica feriados primeiro
         if (typeof FeriadosData !== 'undefined') {
             const statusFeriado = FeriadosData.checarDataStatus(isoString);
             if (statusFeriado) {
@@ -57,23 +71,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
 
-        // Lógica de contagem de dias com base nas setas
         if (diferencaDias > 0) {
-            // Seta para a direita: Futuro
             banner.style.background = "#fff7ed";
             banner.style.borderColor = "#ffedd5";
             banner.style.color = "#c2410c";
             icon.textContent = "schedule";
-            bannerText.innerHTML = `🔮 Planejamento: <strong>Daqui a ${diferencaDias} dia(s)</strong> você terá estas aulas.`;
+            bannerText.innerHTML = `🔮 Planejamento: <strong>Falta(m) ${diferencaDias} dia(s)</strong> para chegar aqui.`;
         } else if (diferencaDias < 0) {
-            // Seta para a esquerda: Passado
             banner.style.background = "#f1f5f9";
             banner.style.borderColor = "#e2e8f0";
             banner.style.color = "#475569";
             icon.textContent = "history";
             bannerText.innerHTML = `📜 Histórico: <strong>Já se passou/passaram ${Math.abs(diferencaDias)} dia(s)</strong> desde esta data.`;
         } else {
-            // Hoje
             banner.style.background = "#e0f2fe";
             banner.style.borderColor = "#bae6fd";
             banner.style.color = "#0369a1";
@@ -82,7 +92,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // 4. ATUALIZADOR DO CARD DO MOMENTO (Minutagem Real)
+    // ==========================================
+    // ⏱️ 5. MOTOR DO CRONÔMETRO E PROGRESSO REAL
+    // ==========================================
     function calcularTempoRealAulas() {
         const agora = new Date();
         const horaAtualMin = (agora.getHours() * 60) + agora.getMinutes();
@@ -93,13 +105,13 @@ document.addEventListener('DOMContentLoaded', function() {
         let aulaAtual = null;
         let proximaAula = null;
 
-        // Só exibe a barra azul se o dia visualizado na tela for o dia de hoje real
         const dAtualStr = hojeReal.toISOString().split('T')[0];
+        
         if (isoDataAtual !== dAtualStr) {
             document.getElementById('currentSubjectName').innerText = "Navegando no tempo";
             document.getElementById('currentSubjectMeta').innerText = "Vá para 'Hoje' para acompanhar a minutagem em tempo real.";
             document.getElementById('currentProgressFill').style.width = "0%";
-            document.getElementById('timeLeftText').innerText = "Barra de progresso desativada para dias passados/futuros.";
+            document.getElementById('timeLeftText').innerText = "Barra de progresso inativa para datas assíncronas.";
             document.getElementById('nextSubjectName').innerText = "--";
             document.getElementById('nextSubjectMeta').innerText = "--";
             return;
@@ -113,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (horaAtualMin >= minInicio && horaAtualMin < minFim) {
                 aulaAtual = aula;
-                proximaAula = grid = aulasDoDia[i + 1] || null;
+                proximaAula = aulasDoDia[i + 1] || null;
             }
         });
 
@@ -139,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('timeLeftText').innerHTML = `⏳ Aula acontecendo: restam <strong>${restam} minutos</strong>.`;
         } else {
             document.getElementById('currentSubjectName').innerText = "Sem aula acontecendo";
-            document.getElementById('currentSubjectMeta').innerText = "Fora do horário escolar.";
+            document.getElementById('currentSubjectMeta').innerText = "Fora do horário escolar padrão.";
             document.getElementById('currentProgressFill').style.width = "0%";
             document.getElementById('timeLeftText').innerText = "Nenhum cronômetro ativo agora.";
         }
@@ -149,11 +161,25 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('nextSubjectMeta').innerText = `⏰ ${proximaAula.h}  |  📍 ${proximaAula.l}`;
         } else {
             document.getElementById('nextSubjectName').innerText = "Fim do expediente";
-            document.getElementById('nextSubjectMeta').innerText = "Sem mais matérias hoje.";
+            document.getElementById('nextSubjectMeta').innerText = "Sem mais matérias listadas para hoje.";
+        }
+
+        // 🧭 Rotação da Bússola
+        const ponteiro = document.getElementById('compassPointer');
+        if (ponteiro) {
+            if (aulaAtual) {
+                const anguloAponte = aulaAtual.id * 65; 
+                ponteiro.style.transform = `rotate(${anguloAponte}deg)`;
+            } else {
+                const segundosVal = new Date().getSeconds();
+                ponteiro.style.transform = `rotate(${segundosVal * 6}deg)`;
+            }
         }
     }
 
-    // 5. SELETOR DE DIAS E INTERFACE DE RENDERS
+    // ==========================================
+    // 📅 6. RENDERS DE INTERFACE (Grades e Semanas)
+    // ==========================================
     function construirCalendarioSemanal() {
         const container = document.getElementById('weekContainer');
         if (!container) return;
@@ -162,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let base = new Date(dataSelecionada);
         let diaDaSemana = base.getDay();
         let diferenca = diaDaSemana === 0 ? -6 : 1 - diaDaSemana;
-        base.setDate(base.getDate() + diferenca); // Alinha na segunda-feira
+        base.setDate(base.getDate() + diferenca);
 
         for (let i = 0; i < 5; i++) {
             let diaLoop = new Date(base);
@@ -220,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const isoDataStr = dataSelecionada.toISOString().split('T')[0];
         const aulasDoDia = obterGradeDoDia(isoDataStr);
-        const modoEditarAtivo = document.getElementById('checkEditMode').checked;
+        const modoEditarAtivo = document.getElementById('checkEditMode')?.checked;
 
         aulasDoDia.forEach((aula, indice) => {
             const el = document.createElement('div');
@@ -249,7 +275,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 6. EVENTOS DE SALVAMENTO E NAVEGAÇÃO POR SETAS
+    // ==========================================
+    // 🎛️ 7. GATILHOS DE EVENTOS E NAVEGAÇÃO
+    // ==========================================
     document.getElementById('btnSaveEdit')?.addEventListener('click', () => {
         const isoDataStr = dataSelecionada.toISOString().split('T')[0];
         let aulasDoDia = obterGradeDoDia(isoDataStr);
@@ -260,14 +288,20 @@ document.addEventListener('DOMContentLoaded', function() {
         const end = document.getElementById('editInputEnd').value;
 
         if (n && indiceAulaSendoEditada !== null) {
-            aulasDoDia[indiceAulaSendoEditada] = { h: `${start} - ${end}`, n: n, l: l, inicio: start, fim: end };
+            aulasDoDia[indiceAulaSendoEditada] = { 
+                id: aulasDoDia[indiceAulaSendoEditada].id || (indiceAulaSendoEditada + 1),
+                h: `${start} - ${end}`, 
+                n: n, 
+                l: l, 
+                inicio: start, 
+                fim: end 
+            };
             salvarGradeDoDia(isoDataStr, aulasDoDia);
             document.getElementById('editPanel').classList.remove('active');
             atualizarTelaCompleta();
         }
     });
 
-    // Controles das Setas Grandes (Esquerda / Direita)
     document.getElementById('btnPrevDay')?.addEventListener('click', () => {
         dataSelecionada.setDate(dataSelecionada.getDate() - 1);
         mesVisualizacao = dataSelecionada.getMonth();
@@ -282,11 +316,13 @@ document.addEventListener('DOMContentLoaded', function() {
         atualizarTelaCompleta();
     });
 
+    // CORREÇÃO 1: Vinculado perfeitamente ao ID "checkEditMode" do HTML
     document.getElementById('checkEditMode')?.addEventListener('change', function() {
-        document.getElementById('editPanel').classList.remove('active');
+        document.getElementById('editPanel')?.classList.remove('active');
         renderizarTimelineGrade();
     });
 
+    // CORREÇÃO 2: Vinculado perfeitamente ao ID "checkFocusMode" do HTML
     document.getElementById('checkFocusMode')?.addEventListener('change', function(e) {
         document.body.classList.toggle('focus-mode-active', e.target.checked);
     });
@@ -294,9 +330,16 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('prevMonth')?.addEventListener('click', () => { mesVisualizacao--; renderizarMiniCalendarioAnual(); });
     document.getElementById('nextMonth')?.addEventListener('click', () => { mesVisualizacao++; renderizarMiniCalendarioAnual(); });
 
+    // ==========================================
+    // 🔄 8. FUNÇÃO MASTER DE ATUALIZAÇÃO
+    // ==========================================
     function atualizarTelaCompleta() {
         const isoString = dataSelecionada.toISOString().split('T')[0];
-        document.getElementById('textFullDate').innerText = `${nomesDias[dataSelecionada.getDay()]}, ${String(dataSelecionada.getDate()).padStart(2, '0')} de ${nomesMeses[dataSelecionada.getMonth()]} de ${dataSelecionada.getFullYear()}`;
+        
+        const txtDate = document.getElementById('textFullDate');
+        if (txtDate) {
+            txtDate.innerText = `${nomesDias[dataSelecionada.getDay()]}, ${String(dataSelecionada.getDate()).padStart(2, '0')} de ${nomesMeses[dataSelecionada.getMonth()]} de ${dataSelecionada.getFullYear()}`;
+        }
         
         construirCalendarioSemanal();
         renderizarMiniCalendarioAnual();
@@ -305,6 +348,7 @@ document.addEventListener('DOMContentLoaded', function() {
         gerenciarBannerTemporal(isoString);
     }
 
+    // Inicialização
     atualizarTelaCompleta();
     setInterval(calcularTempoRealAulas, 15000);
 });
