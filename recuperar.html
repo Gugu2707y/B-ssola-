@@ -3,35 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recuperar Senha</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>B-ssola - Recuperar Senha</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="auth-container">
-        <div class="auth-info">
-            <h1>Esqueceu suas credenciais?</h1>
-            <p>Insira seu e-mail cadastrado para redefinir as credenciais de segurança da sua agenda.</p>
-        </div>
-        <div class="auth-card">
-            <div class="logo-area"><div class="logo-box">📅</div></div>
-            <h2 style="text-align:center; margin-bottom:5px;">Recuperar Senha</h2>
-            <p style="text-align:center; font-size:0.85rem; color:var(--text-muted); margin-bottom:20px;">Digite seu e-mail para recuperar a senha</p>
-            <form id="recForm">
-                <div class="form-group">
-                    <label>✉️ E-mail</label>
-                    <div class="input-wrapper"><input type="email" required placeholder="seu@email.com"></div>
+    <div class="app-container">
+        <div class="info-sidebar">
+            <h1 class="main-title">Organize seu dia com tranquilidade</h1>
+            <p class="main-subtitle">Um espaço pensado para você acompanhar suas atividades de forma clara e previsível.</p>
+            
+            <div class="features-list">
+                <div class="feature-item">
+                    <div class="feature-icon icon-blue">
+                        <span class="material-symbols-outlined">schedule</span>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Acompanhe o tempo</h3>
+                        <p>Veja quanto tempo falta para cada atividade</p>
+                    </div>
                 </div>
-                <button type="submit" class="btn-primary">➔ Enviar Link</button>
-            </form>
-            <p style="text-align:center; font-size:0.85rem; margin-top:20px;"><a href="index.html" style="color:var(--primary-color); text-decoration:none; font-weight:600;">Já tem uma conta? Fazer login</a></p>
+                <div class="feature-item">
+                    <div class="feature-icon icon-orange">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Avisos claros</h3>
+                        <p>Saiba com antecedência sobre mudanças</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon icon-lightblue">
+                        <span class="material-symbols-outlined">visibility</span>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Modo Foco</h3>
+                        <p>Menos distrações quando precisar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="auth-card-wrapper">
+            <div class="auth-card">
+                <div class="logo-area">
+                    <div class="logo-box">
+                        <span class="material-symbols-outlined logo-main-icon">calendar_month</span>
+                        <div class="logo-badge">
+                            <span class="material-symbols-outlined">star</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="auth-title">Recuperar Senha</h2>
+                <p class="auth-subtitle">Digite seu e-mail para recuperar a senha</p>
+
+                <form id="recoverForm" onsubmit="event.preventDefault(); alert('Link de recuperação enviado!'); window.location.href='index.html';">
+                    <div class="input-group">
+                        <label><span class="material-symbols-outlined label-icon">mail</span> E-mail</label>
+                        <input type="email" placeholder="seu@email.com" required>
+                    </div>
+
+                    <button type="submit" class="btn-primary">
+                        <span class="material-symbols-outlined btn-icon">logout</span> Enviar Link
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Já tem uma conta? <a href="index.html" class="footer-link">Fazer login</a></p>
+                </div>
+
+                <div class="security-banner">
+                    <span class="material-symbols-outlined banner-icon">wb_sunny</span>
+                    <div class="banner-text">
+                        <h4>Espaço seguro e organizado</h4>
+                        <p>Aqui você encontra tudo sobre suas atividades do dia de forma clara e simples</p>
+                    </div>
+                </div>
+            </div>
+            <div class="current-date-badge">
+                <span class="material-symbols-outlined">calendar_today</span> terça-feira, 02 de junho de 2026
+            </div>
         </div>
     </div>
-    <script>
-        document.getElementById('recForm')?.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Link de redefinição enviado para o e-mail informado.');
-            window.location.href = 'index.html';
-        });
-    </script>
 </body>
 </html>

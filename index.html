@@ -3,46 +3,112 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda Escolar - Login</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>B-ssola - Login</title>
+    <!-- Importação de ícones do Google Material Symbols -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- Importação da fonte do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Vinculação correta do CSS na mesma raiz -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="auth-container">
-        <!-- Lado Esquerdo: Mensagem e Recursos -->
-        <div class="auth-info">
-            <h1>Organize seu dia com tranquilidade</h1>
-            <p>Um espaço pensado para você acompanhar suas atividades de forma clara e previsível.</p>
-            <div class="info-card">🕒 <div><strong>Acompanhe o tempo</strong><br><small>Veja quanto tempo falta para cada atividade</small></div></div>
-            <div class="info-card">🔔 <div><strong>Avisos claros</strong><br><small>Saiba com antecedência sobre mudanças</small></div></div>
-            <div class="info-card">👁️ <div><strong>Modo Foco</strong><br><small>Menos distrações quando precisar</small></div></div>
+    <div class="app-container">
+        <!-- Lado Esquerdo: Mensagem de Boas-vindas e Recursos -->
+        <div class="info-sidebar">
+            <h1 class="main-title">Organize seu dia com tranquilidade</h1>
+            <p class="main-subtitle">Um espaço pensado para você acompanhar suas atividades de forma clara e previsível.</p>
+            
+            <div class="features-list">
+                <div class="feature-item">
+                    <div class="feature-icon icon-blue">
+                        <span class="material-symbols-outlined">schedule</span>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Acompanhe o tempo</h3>
+                        <p>Veja quanto tempo falta para cada atividade</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon icon-orange">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Avisos claros</h3>
+                        <p>Saiba com antecedência sobre mudanças</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon icon-lightblue">
+                        <span class="material-symbols-outlined">visibility</span>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Modo Foco</h3>
+                        <p>Menos distrações quando precisar</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <!-- Lado Direito: Formulário de Autenticação -->
-        <div class="auth-card">
-            <div class="logo-area"><div class="logo-box">📅</div></div>
-            <h2 style="text-align:center; margin-bottom: 5px;">Bem-vindo(a)!</h2>
-            <p style="text-align:center; font-size:0.85rem; color:var(--text-muted); margin-bottom:20px;">Vamos começar o seu dia</p>
+        <!-- Lado Direito: Formulário de Login (Card Flutuante) -->
+        <div class="auth-card-wrapper">
+            <div class="auth-card">
+                <div class="logo-area">
+                    <div class="logo-box">
+                        <span class="material-symbols-outlined logo-main-icon">calendar_month</span>
+                        <div class="logo-badge">
+                            <span class="material-symbols-outlined">star</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="auth-title">Bem-vindo(a)!</h2>
+                <p class="auth-subtitle">Vamos começar o seu dia</p>
+
+                <form id="loginForm" onsubmit="event.preventDefault(); window.location.href='dashboard.html';">
+                    <div class="input-group">
+                        <label><span class="material-symbols-outlined label-icon">person</span> Nome ou E-mail</label>
+                        <input type="text" placeholder="Digite seu nome ou e-mail" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label><span class="material-symbols-outlined label-icon">lock</span> Senha</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="loginPassword" placeholder="Digite sua senha" required>
+                            <span class="material-symbols-outlined toggle-password" onclick="togglePasswordVisibility('loginPassword')">visibility</span>
+                        </div>
+                    </div>
+
+                    <div class="form-actions-link">
+                        <a href="recuperar.html" class="forgot-password">Esqueceu a senha?</a>
+                    </div>
+
+                    <button type="submit" class="btn-primary">
+                        <span class="material-symbols-outlined btn-icon">login</span> Entrar com Segurança
+                    </button>
+                </form>
+
+                <div class="auth-footer">
+                    <p>Não tem uma conta? <a href="cadastro.html" class="footer-link">Criar conta</a></p>
+                </div>
+
+                <div class="security-banner">
+                    <span class="material-symbols-outlined banner-icon">wb_sunny</span>
+                    <div class="banner-text">
+                        <h4>Espaço seguro e organizado</h4>
+                        <p>Aqui você encontra tudo sobre suas atividades do dia de forma clara e simples</p>
+                    </div>
+                </div>
+            </div>
             
-            <form id="loginForm">
-                <div class="form-group">
-                    <label>👤 Nome ou E-mail</label>
-                    <div class="input-wrapper"><input type="text" id="loginUser" placeholder="Digite seu nome ou e-mail" required></div>
-                </div>
-                <div class="form-group">
-                    <label>🔒 Senha</label>
-                    <div class="input-wrapper"><input type="password" id="loginPass" placeholder="Digite sua senha" required></div>
-                </div>
-                <div class="links-helper">
-                    <span></span>
-                    <a href="recuperar.html">Esqueceu a senha?</a>
-                </div>
-                <button type="submit" class="btn-primary">➔ Entrar com Segurança</button>
-            </form>
-            <p style="text-align:center; font-size:0.85rem; margin-top:20px;">Não tem uma conta? <a href="cadastro.html" style="color:var(--primary-color); font-weight:600; text-decoration:none;">Criar conta</a></p>
-            
-            <div class="footer-notice">☀️ <strong>Espaço seguro e organizado</strong><br>Aqui você encontra tudo sobre suas atividades.</div>
+            <div class="current-date-badge">
+                <span class="material-symbols-outlined">calendar_today</span> terça-feira, 02 de junho de 2026
+            </div>
         </div>
     </div>
-    <script src="js/login.js"></script>
+    <script src="login.js"></script>
 </body>
 </html>
