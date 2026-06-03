@@ -1,9 +1,25 @@
-/* Configurações Gerais de Reset */
+/* ==========================================================================
+   📌 1. CONFIGURAÇÕES GERAIS DE RESET E VARIÁVEIS DE TRANSIÇÃO
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Suaviza a transição de toda a estrutura ao alternar modos (como o Foco) */
+body, 
+.sidebar, 
+.dash-header, 
+.week-nav-container, 
+#calendarDaysGrid, 
+.timeline-event-item,
+.current-activity-card,
+#currentSubjectContainer,
+.next-activity-card,
+#nextSubjectContainer {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
@@ -15,7 +31,9 @@ body {
     color: #1e293b;
 }
 
-/* Estrutura Principal Flexbox Split Screen */
+/* ==========================================================================
+   🧱 2. ESTRUTURA PRINCIPAL (SPLIT SCREEN - TELA DE LOGIN)
+   ========================================================================== */
 .app-container {
     display: flex;
     width: 100%;
@@ -92,7 +110,9 @@ body {
     color: #64748b;
 }
 
-/* Área Direita: Card de Autenticação */
+/* ==========================================================================
+   🔑 3. ÁREA DE AUTENTICAÇÃO (CARD DE LOGIN)
+   ========================================================================== */
 .auth-card-wrapper {
     display: flex;
     flex-direction: column;
@@ -331,18 +351,56 @@ body {
     font-size: 16px;
 }
 
-/* Responsividade Básica */
-@media (max-width: 900px) {
-    .app-container {
-        flex-direction: column;
-        padding: 20px;
-        gap: 40px;
-    }
-    .info-sidebar {
-        text-align: center;
-        max-width: 100%;
-    }
-    .features-list {
-        display: none; /* Esconde listas de recursos em telas mobile pequenas */
-    }
+/* ==========================================================================
+   ✨ 4. SEÇÃO EXCLUSIVA: MODO FOCO PREMIUM (ESTILO ZEN) - CORRIGIDO
+   ========================================================================== */
+
+/* Quando o Modo Foco está ATIVO no Body */
+body.focus-mode-active {
+    background-color: #fafafa !important; /* Fundo limpo e focado */
+}
+
+/* Esconde os elementos de navegação e alertas para evitar distração */
+body.focus-mode-active .status-alert-banner,
+body.focus-mode-active .current-date-badge,
+body.focus-mode-active .logo-area,
+body.focus-mode-active h2,
+body.focus-mode-active small {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-10px);
+}
+
+/* Centraliza e destaca o Bloco de "AGORA" (Seu container principal de aula) */
+body.focus-mode-active .dashboard-layout > div:nth-child(3),
+body.focus-mode-active #currentSubjectContainer {
+    transform: scale(1.03);
+    box-shadow: 0 24px 48px rgba(0, 102, 204, 0.05) !important;
+    border: 1px solid rgba(59, 130, 246, 0.15) !important;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%) !important;
+    max-width: 800px;
+    margin: 60px auto !important;
+    border-radius: 24px;
+    padding: 40px;
+}
+
+/* Destaca o título principal da atividade em execução */
+body.focus-mode-active h3, 
+body.focus-mode-active #currentSubjectName {
+    font-size: 2.4rem !important;
+    letter-spacing: -0.02em;
+    color: #0369a1 !important;
+}
+
+/* Deixa o card de Próxima Atividade sutil na parte inferior */
+body.focus-mode-active .next-activity-card,
+body.focus-mode-active #nextSubjectContainer,
+body.focus-mode-active div[style*="background-color: rgb(255, 248, 236)"] {
+    max-width: 600px;
+    margin: 24px auto !important;
+    opacity: 0.6;
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.02) !important;
 }
