@@ -111,5 +111,63 @@
         </div>
     </div>
     <script src="cadastro.js"></script>
+
+<script type="module">
+ 
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
+ 
+const firebaseConfig = {
+  apiKey: "SUA_API_KEY_AQUI",
+  authDomain: "SEU_AUTH_DOMAIN",
+  projectId: "SEU_PROJECT_ID",
+  storageBucket: "SEU_STORAGE_BUCKET",
+  messagingSenderId: "SEU_MESSAGING_ID",
+  appId: "SEU_APP_ID",
+  measurementId: "SEU_MEASUREMENT_ID" // se tiver
+};
+ 
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+ 
+const form = document.getElementById("registerForm");
+ 
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+ 
+  const nome = form.querySelector('input[type="text"]').value;
+  const email = form.querySelector('input[type="email"]').value;
+  const senha = document.getElementById("regPassword").value;
+  const confirmarSenha = document.getElementById("regConfirmPassword").value;
+ 
+  if (senha !== confirmarSenha) {
+    alert("As senhas não coincidem!");
+    return;
+  }
+ 
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
+    const user = userCredential.user;
+ 
+    await setDoc(doc(db, "usuarios", user.uid), {
+      nome: nome,
+      email: email,
+      criadoEm: new Date()
+    });
+ 
+    alert("Conta criada com sucesso 🔥");
+    window.location.href = "index.html";
+ 
+  } catch (error) {
+    alert("Erro: " + error.message);
+  }
+});
+ 
+</script>
+
+
+
 </body>
 </html>
