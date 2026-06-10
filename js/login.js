@@ -2,12 +2,12 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/fireba
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
  
 const firebaseConfig = {
-  apiKey: "SUA_API_KEY",
-  authDomain: "SEU_AUTH_DOMAIN",
-  projectId: "SEU_PROJECT_ID",
-  storageBucket: "SEU_STORAGE_BUCKET",
-  messagingSenderId: "SEU_MESSAGING_ID",
-  appId: "SEU_APP_ID"
+  apiKey: "AIzaSyC1G18Jf6qujcLXRc6Wz4K3VcOqi8jfXY8",
+  authDomain: "bancodedadosdourado2.firebaseapp.com",
+  projectId: "bancodedadosdourado2",
+  storageBucket: "bancodedadosdourado2.firebasestorage.app",
+  messagingSenderId: "311352710045",
+  appId: "1:311352710045:web:83ccfce9c45a0a266e9574"
 };
  
 const app = initializeApp(firebaseConfig);
