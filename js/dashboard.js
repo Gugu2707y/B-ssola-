@@ -20,7 +20,7 @@ let dataAtual = new Date('2026-06-02T00:00:00');
 
 function initDashboard(user) {
   // 👤 nome usuário
-  const welcome = $("welcomeUserName");
+  const welcome = $("welcomeUser");
   if (welcome) {
     welcome.innerText = user.email.split("@")[0];
   }
@@ -43,7 +43,7 @@ function initDashboard(user) {
 
 // 📆 SEMANA
 function gerarSemana() {
-  const week = $("weekContainer");
+  const week = $("weekGrid");
   if (!week) return;
 
   week.innerHTML = "";
@@ -81,7 +81,7 @@ function gerarSemana() {
 
 // 📢 BANNER
 function atualizarBanner() {
-  const banner = $("dashboardBanner");
+  const banner = $("statusBanner");
   if (!banner) return;
 
   banner.innerHTML = `
@@ -92,7 +92,7 @@ function atualizarBanner() {
 
 // 📋 TIMELINE
 function gerarTimeline() {
-  const timeline = $("timelineContainer");
+  const timeline = $("timelineList");
   if (!timeline) return;
 
   const rotina = [
