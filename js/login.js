@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
- 
+
 const firebaseConfig = {
   apiKey: "AIzaSyC1G18Jf6qujcLXRc6Wz4K3VcOqi8jfXY8",
   authDomain: "bancodedadosdourado2.firebaseapp.com",
@@ -9,30 +9,29 @@ const firebaseConfig = {
   messagingSenderId: "311352710045",
   appId: "1:311352710045:web:83ccfce9c45a0a266e9574"
 };
- 
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
- 
+
 const form = document.getElementById("loginForm");
- 
+
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
- 
-  const inputs = form.querySelectorAll("input");
- 
-  const email = inputs[0].value;   // primeiro input
-  const senha = document.getElementById("loginPassword").value;
- 
+
+  const email = document.getElementById("email").value;
+  const senha = document.getElementById("password").value;
+
   try {
-    console.log("tentando login:", email);
- 
-    await signInWithEmailAndPassword(auth, email, senha);
- 
-    alert("Login OK 🔥");
+    const userCredential = await signInWithEmailAndPassword(auth, email, senha);
+
+    const user = userCredential.user;
+
+    // salva sessão real
+    localStorage.setItem("uid", user.uid);
+
     window.location.href = "dashboard.html";
- 
+
   } catch (error) {
-    console.log("ERRO:", error.code, error.message);
-    alert(error.message);
+    alert("Erro no login: " + error.message);
   }
 });
