@@ -13,29 +13,32 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-const form = document.getElementById("loginForm");
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("loginForm");
 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-  const email = document.getElementById("loginEmail").value;
-  const password = document.getElementById("loginPassword").value;
+    const email = document.getElementById("loginEmail").value;
+    const password = document.getElementById("loginPassword").value;
 
-  if (!email || !password) {
-    alert("Preencha todos os campos!");
-    return;
-  }
+    if (!email || !password) {
+      alert("Preencha todos os campos!");
+      return;
+    }
 
-  try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
-    localStorage.setItem("usuarioLogado", email);
+      const user = userCredential.user;
 
-    alert("Login feito com sucesso 🔥");
-    window.location.href = "dashboard.html";
+      localStorage.setItem("usuarioLogado", user.email);
 
-  } catch (error) {
-    alert("Erro no login: " + error.message);
-  }
+      alert("Login feito com sucesso 🔥");
+      window.location.href = "dashboard.html";
+
+    } catch (error) {
+      alert("Erro no login: " + error.message);
+    }
+  });
 });
