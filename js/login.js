@@ -18,17 +18,21 @@ const form = document.getElementById("loginForm");
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const email = document.getElementById("email").value;
-  const senha = document.getElementById("password").value;
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  if (!email || !password) {
+    alert("Preencha todos os campos!");
+    return;
+  }
 
   try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, senha);
-
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
-    // salva sessão real
-    localStorage.setItem("uid", user.uid);
+    localStorage.setItem("usuarioLogado", email);
 
+    alert("Login feito com sucesso 🔥");
     window.location.href = "dashboard.html";
 
   } catch (error) {
