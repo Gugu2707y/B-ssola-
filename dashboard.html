@@ -1,295 +1,204 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🧭 Bússola Dashboard</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🧭 Bússola</title>
 
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; background: #f8fafc; }
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #f6f8fc;
+      margin: 0;
+      color: #0f172a;
+    }
 
-        .dashboard-layout {
-            max-width: 1200px;
-            margin: auto;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
 
-        .dash-header {
-            background: white;
-            padding: 16px 20px;
-            border-radius: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    /* HEADER */
+    .header {
+      background: white;
+      padding: 16px;
+      border-radius: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-        .header-actions {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
+    .header h2 {
+      margin: 0;
+      font-size: 18px;
+    }
 
-        .btn-action-icon {
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            cursor: pointer;
-            background: #f1f5f9;
-        }
+    .header small {
+      color: #64748b;
+    }
 
-        .toggle-btn-label {
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: #f1f5f9;
-            padding: 6px 10px;
-            border-radius: 10px;
-            cursor: pointer;
-        }
+    .actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
 
-        .status-alert-banner {
-            background: #e0f2fe;
-            padding: 14px;
-            border-radius: 12px;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            font-weight: 500;
-        }
+    .btn {
+      border: none;
+      background: #eef2ff;
+      padding: 8px 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+    }
 
-        .week-nav-container {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
+    .logout {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
 
-        .week-selector-grid {
-            display: flex;
-            gap: 10px;
-            flex: 1;
-        }
+    /* STATUS */
+    .banner {
+      background: #e0f2fe;
+      padding: 14px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+    }
 
-        .week-day-card {
-            flex: 1;
-            background: white;
-            padding: 10px;
-            border-radius: 12px;
-            text-align: center;
-            cursor: pointer;
-        }
+    /* NAV SEMANA */
+    .week {
+      display: flex;
+      gap: 8px;
+      justify-content: space-between;
+    }
 
-        .week-day-card.active {
-            background: #3b82f6;
-            color: white;
-        }
+    .day {
+      flex: 1;
+      background: white;
+      padding: 10px;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      font-size: 14px;
+    }
 
-        .dashboard-columns {
-            display: flex;
-            gap: 16px;
-        }
+    .day.active {
+      background: #2563eb;
+      color: white;
+    }
 
-        .column-left {
-            flex: 2;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
+    /* CARDS */
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
 
-        .column-right {
-            flex: 1;
-            background: white;
-            padding: 16px;
-            border-radius: 16px;
-        }
+    .card {
+      background: white;
+      padding: 14px;
+      border-radius: 14px;
+    }
 
-        .info-block-card {
-            background: white;
-            padding: 16px;
-            border-radius: 16px;
-        }
+    .progress {
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 10px;
+    }
 
-        .progress-bar-wrapper {
-            height: 8px;
-            background: #e2e8f0;
-            border-radius: 10px;
-            overflow: hidden;
-            margin-top: 10px;
-        }
+    .bar {
+      height: 100%;
+      width: 0%;
+      background: #2563eb;
+    }
 
-        .progress-bar-fill {
-            height: 100%;
-            width: 0%;
-            background: #3b82f6;
-        }
+    /* LADO */
+    .side {
+      background: white;
+      padding: 14px;
+      border-radius: 14px;
+    }
 
-        .timeline-container {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .edit-panel {
-            display: none;
-            background: #fff7ed;
-            padding: 14px;
-            border-radius: 12px;
-        }
-
-        .edit-panel.active {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .edit-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .edit-field input {
-            width: 100%;
-            padding: 8px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-        }
-
-        .btn-save-box {
-            background: #f97316;
-            border: none;
-            color: white;
-            padding: 10px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-    </style>
+    .layout {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 14px;
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="dashboard-layout">
+<div class="container">
 
-    <!-- HEADER -->
-    <div class="dash-header">
-        <div>
-            <h2 style="margin:0;">Olá, <span id="welcomeUser">Usuário</span>!</h2>
-            <small>
-                <span class="material-symbols-outlined" style="font-size:16px;">calendar_today</span>
-                <span id="currentFullDate">Carregando data...</span>
-            </small>
-        </div>
-
-        <div class="header-actions">
-            <label class="toggle-btn-label">
-                <input type="checkbox" id="checkEditMode">
-                Configurar
-            </label>
-
-            <label class="toggle-btn-label">
-                <input type="checkbox" id="checkFocusMode">
-                Foco
-            </label>
-
-            <button id="logoutBtn" class="btn-action-icon">
-                <span class="material-symbols-outlined">logout</span>
-            </button>
-        </div>
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <h2>Olá, <span id="welcomeUser">Usuário</span>!</h2>
+      <small id="textFullDate">Carregando data...</small>
     </div>
 
-    <!-- BANNER -->
-    <div class="status-alert-banner" id="statusBanner">
-        <span class="material-symbols-outlined">info</span>
-        <span>Carregando status...</span>
+    <div class="actions">
+      <button class="btn">Configurar</button>
+      <button class="btn">Foco</button>
+      <button class="btn logout" onclick="window.location.href='index.html'">Sair</button>
     </div>
+  </div>
 
-    <!-- SEMANA -->
-    <div class="week-nav-container">
-        <button class="btn-action-icon" id="btnPrevDay">
-            <span class="material-symbols-outlined">arrow_back</span>
-        </button>
+  <!-- STATUS -->
+  <div class="banner" id="statusBanner">
+    <span>ℹ️</span>
+    <span id="bannerText">Carregando status...</span>
+  </div>
 
-        <div class="week-selector-grid" id="weekGrid"></div>
+  <!-- SEMANA -->
+  <div class="week" id="weekGrid"></div>
 
-        <button class="btn-action-icon" id="btnNextDay">
-            <span class="material-symbols-outlined">arrow_forward</span>
-        </button>
-    </div>
+  <!-- CONTEÚDO -->
+  <div class="layout">
 
-    <!-- CONTEÚDO -->
-    <div class="dashboard-columns">
+    <!-- ESQUERDA -->
+    <div class="grid">
 
-        <!-- ESQUERDA -->
-        <div class="column-left">
+      <div class="card">
+        <h3>📘 Agora</h3>
+        <h2 id="currentSubjectName">Verificando...</h2>
+        <small id="currentSubjectMeta">--</small>
 
-            <div class="info-block-card">
-                <span>📘 Agora</span>
-                <h2 id="currentSubjectName">Verificando...</h2>
-                <p id="currentSubjectMeta">--</p>
-
-                <div class="progress-bar-wrapper">
-                    <div class="progress-bar-fill" id="currentProgressFill"></div>
-                </div>
-
-                <small id="timeLeftText">--</small>
-            </div>
-
-            <div class="info-block-card">
-                <span>🍕 Próxima</span>
-                <h3 id="nextSubjectName">--</h3>
-                <p id="nextSubjectMeta">--</p>
-            </div>
-
-            <div class="edit-panel" id="editPanel">
-                <div class="edit-grid">
-                    <div class="edit-field">
-                        <input id="editInputName" placeholder="Matéria">
-                    </div>
-                    <div class="edit-field">
-                        <input id="editInputRoom" placeholder="Sala">
-                    </div>
-                    <div class="edit-field">
-                        <input id="editInputStart" placeholder="Início">
-                    </div>
-                    <div class="edit-field">
-                        <input id="editInputEnd" placeholder="Fim">
-                    </div>
-                </div>
-
-                <button class="btn-save-box" id="btnSaveEdit">Salvar</button>
-            </div>
-
+        <div class="progress">
+          <div class="bar" id="currentProgressFill"></div>
         </div>
 
-        <!-- DIREITA -->
-        <div class="column-right">
+        <small id="timeLeftText">--</small>
+      </div>
 
-            <h3>📅 Calendário</h3>
-
-            <div class="datepicker-container">
-                <div class="datepicker-header">
-                    <button class="btn-action-icon" id="prevMonth">‹</button>
-                    <span id="calendarMonthYear">--</span>
-                    <button class="btn-action-icon" id="nextMonth">›</button>
-                </div>
-
-                <div class="datepicker-grid" id="calendarDaysGrid"></div>
-            </div>
-
-            <h3 style="margin-top:20px;">⏱️ Grade</h3>
-            <div class="timeline-container" id="timelineList"></div>
-
-        </div>
+      <div class="card">
+        <h3>🍕 Próxima</h3>
+        <h3 id="nextSubjectName">--</h3>
+        <small id="nextSubjectMeta">--</small>
+      </div>
 
     </div>
+
+    <!-- DIREITA -->
+    <div class="side">
+      <h3>📅 Grade</h3>
+      <div id="timelineList"></div>
+    </div>
+
+  </div>
 
 </div>
 
