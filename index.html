@@ -2,16 +2,16 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Aluno</title>
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #ebf5ff; padding: 20px; }
-        .dashboard-container { max-width: 1040px; margin: auto; }
-        /* Adicione aqui o seu CSS original de 1000 linhas */
-        
-        /* Funcionalidades exigidas */
-        .modal { display: none; position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 999; }
-        .modal-content { background: white; padding: 20px; border-radius: 20px; width: 300px; }
+        /* Cole TODO o seu CSS original aqui dentro */
+        /* E mantenha estas classes essenciais para o layout que você quer: */
+        .dash-header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 20px; border-radius: 20px; margin-bottom: 20px; }
+        .week-nav-container { display: flex; justify-content: center; background: white; padding: 15px; border-radius: 15px; margin-bottom: 20px; }
+        .day-tab { padding: 10px 20px; cursor: pointer; text-align: center; }
+        .day-tab.active { background: #3b82f6; color: white; border-radius: 10px; }
+        .grid-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+        .progress-bar-fill { height: 10px; background: #3b82f6; border-radius: 5px; }
     </style>
 </head>
 <body>
@@ -19,71 +19,55 @@
 <div class="dashboard-container">
     <header class="dash-header">
         <div class="user-text">
-            <h2 id="userNameDisplay">Olá, Usuário!</h2>
-            <div class="current-full-date" id="dateDisplay"></div>
+            <h2 id="userName">Olá, Usuário!</h2>
+            <p id="currentDate"></p>
+        </div>
+        <div class="header-actions">
+            <button onclick="abrirConfig()">⚙️</button>
         </div>
     </header>
 
-    <div class="week-nav-container">
-        <button class="week-arrow" onclick="mudarDia(-1)">❮</button>
-        <div class="week-days-grid" id="weekGrid"></div>
-        <button class="week-arrow" onclick="mudarDia(1)">❯</button>
-    </div>
+    <div class="week-nav-container" id="weekNav">
+        </div>
 
-    <div id="materiasList" class="meu-dia-container"></div>
-</div>
-
-<div id="editModal" class="modal">
-    <div class="modal-content">
-        <h3>Editar Atividade</h3>
-        <input type="text" id="editNome" placeholder="Matéria">
-        <input type="text" id="editProf" placeholder="Professor">
-        <input type="time" id="editInicio">
-        <input type="time" id="editFim">
-        <button onclick="salvarAlteracoes()">Salvar</button>
+    <div class="grid-layout">
+        <div class="main-content">
+            <div id="agoraCard" class="card">
+                <h3>AGORA</h3>
+                <h2 id="currentAula">Carregando...</h2>
+                <div class="progress-bar-container"><div class="progress-bar-fill" id="progresso"></div></div>
+            </div>
+            <div id="proximaCard" class="card">
+                <h3>PRÓXIMA ATIVIDADE</h3>
+                <p id="nextAula">Carregando...</p>
+            </div>
+        </div>
+        <div class="sidebar">
+            <div class="card"><h3>GRADE</h3></div>
+        </div>
     </div>
 </div>
 
 <script>
-    // 1. Nome do Usuário
-    const email = "joao.silva@escola.com";
-    document.getElementById("userNameDisplay").innerText = "Olá, " + email.split('@')[0].replace('.', ' ');
+    // 1. Nome do Usuário via Email
+    const userEmail = "aluno@exemplo.com";
+    document.getElementById("userName").innerText = "Olá, " + userEmail.split('@')[0];
 
-    // 2. Lógica de Data e Calendário
-    let dataAtual = new Date();
-    function renderCalendario() {
-        // Lógica de renderização dos dias da semana
-        const grid = document.getElementById("weekGrid");
-        grid.innerHTML = "<div>Seg...</div>"; // Preencha com sua lógica de datas
+    // 2. Calendário Semanal Dinâmico
+    const dias = ['segunda', 'terça', 'quarta', 'quinta', 'sexta'];
+    const nav = document.getElementById('weekNav');
+    dias.forEach((dia, i) => {
+        nav.innerHTML += `<div class="day-tab ${i===2?'active':''}">${dia}<br><strong>${i+1}</strong></div>`;
+    });
+
+    // 3. Atualização de Progresso (Simulação)
+    function atualizarDashboard() {
+        document.getElementById("currentAula").innerText = "Matemática";
+        document.getElementById("nextAula").innerText = "Intervalo";
+        document.getElementById("progresso").style.width = "65%";
     }
-
-    // 3. Progresso e Edição
-    let atividades = [{nome: "Matemática", prof: "Prof. Maria", inicio: "08:00", fim: "12:00"}];
     
-    function renderAtividades() {
-        const container = document.getElementById("materiasList");
-        container.innerHTML = atividades.map((atv, i) => `
-            <div class="activity-item">
-                <div>
-                    <strong>${atv.nome}</strong><br><small>${atv.prof}</small>
-                    <div class="progress-bar-bg"><div class="progress-bar-fill" id="prog-${i}"></div></div>
-                </div>
-                <button onclick="abrirModal(${i})">Editar</button>
-            </div>
-        `).join('');
-    }
-
-    function abrirModal(i) {
-        document.getElementById("editModal").style.display = "flex";
-        // Preencher inputs com valores atuais
-    }
-
-    function salvarAlteracoes() {
-        // Lógica para salvar e atualizar o renderAtividades()
-        document.getElementById("editModal").style.display = "none";
-    }
-
-    renderAtividades();
+    atualizarDashboard();
 </script>
 </body>
 </html>
