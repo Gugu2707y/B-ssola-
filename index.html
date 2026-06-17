@@ -1,110 +1,89 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>B-ssola - Login</title>
-    <!-- Importação de ícones do Google Material Symbols -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <!-- Importação da fonte do Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Vinculação correta do CSS na mesma raiz -->
-    <link rel="stylesheet" href="style.css">
+    <title>Dashboard Aluno</title>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #ebf5ff; padding: 20px; }
+        .dashboard-container { max-width: 1040px; margin: auto; }
+        /* Adicione aqui o seu CSS original de 1000 linhas */
+        
+        /* Funcionalidades exigidas */
+        .modal { display: none; position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 999; }
+        .modal-content { background: white; padding: 20px; border-radius: 20px; width: 300px; }
+    </style>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Lado Esquerdo: Mensagem de Boas-vindas e Recursos -->
-        <div class="info-sidebar">
-            <h1 class="main-title">Organize seu dia com tranquilidade</h1>
-            <p class="main-subtitle">Um espaço pensado para você acompanhar suas atividades de forma clara e previsível.</p>
-            
-            <div class="features-list">
-                <div class="feature-item">
-                    <div class="feature-icon icon-blue">
-                        <span class="material-symbols-outlined">schedule</span>
-                    </div>
-                    <div class="feature-text">
-                        <h3>Acompanhe o tempo</h3>
-                        <p>Veja quanto tempo falta para cada atividade</p>
-                    </div>
-                </div>
 
-                <div class="feature-item">
-                    <div class="feature-icon icon-orange">
-                        <span class="material-symbols-outlined">notifications</span>
-                    </div>
-                    <div class="feature-text">
-                        <h3>Avisos claros</h3>
-                        <p>Saiba com antecedência sobre mudanças</p>
-                    </div>
-                </div>
-
-                <div class="feature-item">
-                    <div class="feature-icon icon-lightblue">
-                        <span class="material-symbols-outlined">visibility</span>
-                    </div>
-                    <div class="feature-text">
-                        <h3>Modo Foco</h3>
-                        <p>Menos distrações quando precisar</p>
-                    </div>
-                </div>
-            </div>
+<div class="dashboard-container">
+    <header class="dash-header">
+        <div class="user-text">
+            <h2 id="userNameDisplay">Olá, Usuário!</h2>
+            <div class="current-full-date" id="dateDisplay"></div>
         </div>
+    </header>
 
-        <!-- Lado Direito: Formulário de Login (Card Flutuante) -->
-        <div class="auth-card-wrapper">
-            <div class="auth-card">
-                <div class="logo-area">
-                    <div class="logo-box">
-                        <span class="material-symbols-outlined logo-main-icon">calendar_month</span>
-                        <div class="logo-badge">
-                            <span class="material-symbols-outlined">star</span>
-                        </div>
-                    </div>
-                </div>
-
-                <h2 class="auth-title">Bem-vindo(a)!</h2>
-                <p class="auth-subtitle">Vamos começar o seu dia</p>
-
-               <form id="loginForm">
-             <div class="input-group">
-                <label><span class="material-symbols-outlined label-icon">person</span> Nome ou E-mail</label>
-             <input type="text" id="loginEmail" placeholder="Digite seu nome ou e-mail" required>
-             </div>
-
-            <div class="input-group">
-              <label><span class="material-symbols-outlined label-icon">lock</span> Senha</label>
-              <div class="password-wrapper">
-                 <input type="password" id="loginPassword" placeholder="Digite sua senha" required>
-            <span class="material-symbols-outlined toggle-password" onclick="togglePasswordVisibility('loginPassword')">visibility</span>
-              </div>
-         </div>
-
-    <button type="submit" class="btn-primary">
-        <span class="material-symbols-outlined btn-icon">login</span> Entrar com Segurança
-    </button>
-</form>
-
-                <div class="auth-footer">
-                    <p>Não tem uma conta? <a href="cadastro.html" class="footer-link">Criar conta</a></p>
-                </div>
-
-                <div class="security-banner">
-                    <span class="material-symbols-outlined banner-icon">wb_sunny</span>
-                    <div class="banner-text">
-                        <h4>Espaço seguro e organizado</h4>
-                        <p>Aqui você encontra tudo sobre suas atividades do dia de forma clara e simples</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="current-date-badge">
-                <span class="material-symbols-outlined">calendar_today</span> terça-feira, 02 de junho de 2026
-            </div>
-        </div>
+    <div class="week-nav-container">
+        <button class="week-arrow" onclick="mudarDia(-1)">❮</button>
+        <div class="week-days-grid" id="weekGrid"></div>
+        <button class="week-arrow" onclick="mudarDia(1)">❯</button>
     </div>
-   <script type="module" src="./js/login.js"></script>
+
+    <div id="materiasList" class="meu-dia-container"></div>
+</div>
+
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <h3>Editar Atividade</h3>
+        <input type="text" id="editNome" placeholder="Matéria">
+        <input type="text" id="editProf" placeholder="Professor">
+        <input type="time" id="editInicio">
+        <input type="time" id="editFim">
+        <button onclick="salvarAlteracoes()">Salvar</button>
+    </div>
+</div>
+
+<script>
+    // 1. Nome do Usuário
+    const email = "joao.silva@escola.com";
+    document.getElementById("userNameDisplay").innerText = "Olá, " + email.split('@')[0].replace('.', ' ');
+
+    // 2. Lógica de Data e Calendário
+    let dataAtual = new Date();
+    function renderCalendario() {
+        // Lógica de renderização dos dias da semana
+        const grid = document.getElementById("weekGrid");
+        grid.innerHTML = "<div>Seg...</div>"; // Preencha com sua lógica de datas
+    }
+
+    // 3. Progresso e Edição
+    let atividades = [{nome: "Matemática", prof: "Prof. Maria", inicio: "08:00", fim: "12:00"}];
+    
+    function renderAtividades() {
+        const container = document.getElementById("materiasList");
+        container.innerHTML = atividades.map((atv, i) => `
+            <div class="activity-item">
+                <div>
+                    <strong>${atv.nome}</strong><br><small>${atv.prof}</small>
+                    <div class="progress-bar-bg"><div class="progress-bar-fill" id="prog-${i}"></div></div>
+                </div>
+                <button onclick="abrirModal(${i})">Editar</button>
+            </div>
+        `).join('');
+    }
+
+    function abrirModal(i) {
+        document.getElementById("editModal").style.display = "flex";
+        // Preencher inputs com valores atuais
+    }
+
+    function salvarAlteracoes() {
+        // Lógica para salvar e atualizar o renderAtividades()
+        document.getElementById("editModal").style.display = "none";
+    }
+
+    renderAtividades();
+</script>
 </body>
 </html>
