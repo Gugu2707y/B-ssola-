@@ -139,4 +139,40 @@ $("btnNextDay")?.addEventListener("click", () => {
   dataAtual.setDate(dataAtual.getDate() + 1);
   gerarSemana();
   atualizarBanner();
+document.addEventListener("DOMContentLoaded", carregarAulas);
+
+function abrirModal() {
+    document.getElementById('modalConfig').style.display = 'flex';
+}
+
+function fecharModal() {
+    document.getElementById('modalConfig').style.display = 'none';
+}
+
+function salvarMateria() {
+    const materia = document.getElementById('materia').value;
+    const professor = document.getElementById('professor').value;
+    
+    if (!materia) return alert("Preencha a matéria!");
+
+    const aula = { materia, professor };
+    const aulas = JSON.parse(localStorage.getItem('minhasAulas') || '[]');
+    aulas.push(aula);
+    
+    localStorage.setItem('minhasAulas', JSON.stringify(aulas));
+    
+    fecharModal();
+    carregarAulas();
+}
+
+function carregarAulas() {
+    const lista = document.getElementById('aulas-adicionadas');
+    const aulas = JSON.parse(localStorage.getItem('minhasAulas') || '[]');
+    
+    lista.innerHTML = '';
+    aulas.forEach(aula => {
+        lista.innerHTML += `<li>${aula.materia} - Prof: ${aula.professor}</li>`;
+    });
+}
+
 });
