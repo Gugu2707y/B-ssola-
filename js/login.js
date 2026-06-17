@@ -1,44 +1,40 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC1G18Jf6qujcLXRc6Wz4K3VcOqi8jfXY8",
-  authDomain: "bancodedadosdourado2.firebaseapp.com",
-  projectId: "bancodedadosdourado2",
-  storageBucket: "bancodedadosdourado2.firebasestorage.app",
-  messagingSenderId: "311352710045",
-  appId: "1:311352710045:web:83ccfce9c45a0a266e9574"
+    apiKey: "AIzaSyCtG101f6qujclXRCWmdHJVcbqlKjFXVM",
+    authDomain: "bancodedadosdourado3.firebaseapp.com",
+    projectId: "bancodedadosdourado3",
+    storageBucket: "bancodedadosdourado3.firebasestorage.app",
+    messagingSenderId: "211252758015",
+    appId: "1:211252758015:web:82ccfc9e426a8c2d60d53d"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("loginForm");
+const form = document.getElementById("loginForm");
 
-  form.addEventListener("submit", async (e) => {
+form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const email = document.getElementById("loginEmail").value;
-    const password = document.getElementById("loginPassword").value;
+    const inputs = form.querySelectorAll("input");
+    console.log("Tentando login...");
 
-    if (!email || !password) {
-      alert("Preencha todos os campos!");
-      return;
-    }
+    const email = inputs[0].value; // primeiro input
+    const senha = document.getElementById("loginPassword").value;
 
     try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-
-      const user = userCredential.user;
-
-      localStorage.setItem("usuarioLogado", user.email);
-
-      alert("Login feito com sucesso 🔥");
-      window.location.href = "dashboard.html";
-
+        console.log("tentando login:", email);
+        
+        // Faz a autenticação no Firebase
+        await signInWithEmailAndPassword(auth, email, senha);
+        
+        alert("login OK 😁");
+        window.location.href = "dashboard.html";
+        
     } catch (error) {
-      alert("Erro no login: " + error.message);
+        console.log("ERRO:", error.code, error.message);
+        alert(error.message);
     }
-  });
 });
