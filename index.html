@@ -19,7 +19,7 @@
         <div class="info-sidebar">
             <h1 class="main-title">Organize seu dia com tranquilidade</h1>
             <p class="main-subtitle">Um espaço pensado para você acompanhar suas atividades de forma clara e previsível.</p>
-            
+
             <div class="features-list">
                 <div class="feature-item">
                     <div class="feature-icon icon-blue">
@@ -68,24 +68,28 @@
                 <h2 class="auth-title">Bem-vindo(a)!</h2>
                 <p class="auth-subtitle">Vamos começar o seu dia</p>
 
-               <form id="loginForm">
-             <div class="input-group">
-                <label><span class="material-symbols-outlined label-icon">person</span> Nome ou E-mail</label>
-             <input type="text" id="loginEmail" placeholder="Digite seu nome ou e-mail" required>
-             </div>
+                <form id="loginForm">
+                    <div class="input-group">
+                        <label><span class="material-symbols-outlined label-icon">person</span> Nome ou E-mail</label>
+                        <input type="text" placeholder="Digite seu nome ou e-mail" required>
+                    </div>
 
-            <div class="input-group">
-              <label><span class="material-symbols-outlined label-icon">lock</span> Senha</label>
-              <div class="password-wrapper">
-                 <input type="password" id="loginPassword" placeholder="Digite sua senha" required>
-            <span class="material-symbols-outlined toggle-password" onclick="togglePasswordVisibility('loginPassword')">visibility</span>
-              </div>
-         </div>
+                    <div class="input-group">
+                        <label><span class="material-symbols-outlined label-icon">lock</span> Senha</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="loginPassword" placeholder="Digite sua senha" required>
+                            <span class="material-symbols-outlined toggle-password" onclick="togglePasswordVisibility('loginPassword')">visibility</span>
+                        </div>
+                    </div>
 
-    <button type="submit" class="btn-primary">
-        <span class="material-symbols-outlined btn-icon">login</span> Entrar com Segurança
-    </button>
-</form>
+                    <div class="form-actions-link">
+                        <a href="recuperar.html" class="forgot-password">Esqueceu a senha?</a>
+                    </div>
+
+                    <button type="submit" class="btn-primary">
+                        <span class="material-symbols-outlined btn-icon">login</span> Entrar com Segurança
+                    </button>
+                </form>
 
                 <div class="auth-footer">
                     <p>Não tem uma conta? <a href="cadastro.html" class="footer-link">Criar conta</a></p>
@@ -99,7 +103,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="current-date-badge">
                 <span class="material-symbols-outlined">calendar_today</span> terça-feira, 02 de junho de 2026
             </div>
