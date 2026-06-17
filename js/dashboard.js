@@ -1,91 +1,127 @@
-// dashboard.js - Código estruturado para persistência e edição
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
-
-// ... (Mantenha sua configuração Firebase aqui)
-
+// dashboard.js
 const $ = (id) => document.getElementById(id);
 let dataAtual = new Date();
 
-// Estrutura de dados persistente: 1=Segunda, 2=Terça... 5=Sexta
-let gradeSemanal = JSON.parse(localStorage.getItem('minhaGradeEscolar')) || {
-    1: [{ nome: "Português", hora: "08:00 - 08:50", sala: "12" }],
-    2: [{ nome: "Matemática", hora: "10:00 - 10:50", sala: "12" }],
-    3: [], 4: [], 5: []
+// Carrega ou inicializa a grade
+let grade = JSON.parse(localStorage.getItem('minhaGradeCompleta')) || {
+    1: { nome: "Segunda", aulas: [] },
+    2: { nome: "Terça", aulas: [] },
+    3: { nome: "Quarta", aulas: [] },
+    4: { nome: "Quinta", aulas: [] },
+    5: { nome: "Sexta", aulas: [] }
 };
 
-function initDashboard(user) {
-    atualizarUI();
+function salvarGrade() {
+    localStorage.setItem('minhaGradeCompleta', JSON.stringify(grade));
 }
 
-function atualizarUI() {
-    renderizarCalendario();
-    renderizarListaAulas();
-    atualizarStatusDia();
-}
+// Função Principal de Atualização
+function atualizarTudo() {
+    const diaIndex = dataAtual.getDay();
+    
+    // 1. Atualiza Data e Texto Relativo
+    const hoje = new Date(); hoje.setHours(0,0,0,0);
+    const diff = Math.round((dataAtual - hoje) / (1000 * 60 * 60 * 24));
+    let textoRelativo = diff === 0 ? "Hoje" : diff === 1 ? "Amanhã" : `Daqui a ${diff} dias`;
+    
+    $("textFullDate").innerText = `${dataAtual.toLocaleDateString("pt-BR")} (${textoRelativo})`;
 
-// 📅 Renderiza os dias da semana (1-5)
-function renderizarCalendario() {
-    const container = $("weekGrid"); // Certifique-se de ter este ID no seu HTML
-    if (!container) return;
+    // 2. Renderiza Grade do Dia (Persistente)
+    const container = $("timelineList");
     container.innerHTML = "";
     
-    // Logica para gerar 5 dias fixos ou semana corrente
-    for(let i = 1; i <= 5; i++) {
+    const aulas = grade[diaIndex]?.aulas || [];
+    if(aulas.length === 0) container.innerHTML = "<p>Nenhuma aula configurada para este dia.</p>";
+    
+    aulas.forEach((aula, idx) => {
         const div = document.createElement("div");
-        div.className = `day-tab ${dataAtual.getDay() === i ? 'active' : ''}`;
-        div.innerHTML = `<span>Dia ${i}</span>`;
-        div.onclick = () => { 
-            // Atualiza data e recarrega
-            dataAtual.setDate(dataAtual.getDate() + (i - dataAtual.getDay()));
-            atualizarUI();
-        };
+        div.className = "aula-item";
+        div.innerHTML = `<strong>${aula.materia}</strong> <span>${aula.hora}</span> 
+                         <button onclick="removerAula(${diaIndex}, ${idx})">X</button>`;
         container.appendChild(div);
-    }
+    });
 }
 
-// 📋 Renderiza as aulas do dia selecionado
-function renderizarListaAulas() {
-    const lista = $("timelineList");
-    if (!lista) return;
+// 3. Funções de Controle para o Modal
+window.adicionarAula = (materia, hora) => {
+    const dia = dataAtual.getDay();
+    if(!grade[dia]) grade[dia] = { aulas: [] };
+    grade[dia].aulas.push({ materia, hora });
+    salvarGrade();
+    atualizarTudo();
+};
+
+window.removerAula = (dia, idx) => {
+    grade[dia].aulas.splice(idx, 1);
+    salvarGrade();
+    atualizarTudo();
+};
+
+// Eventos de Navegação
+$("btnNextDay")?.addEventListener("click", () => { dataAtual.setDate(dataAtual.getDate() + 1); atualizarTudo(); });
+$("btnPrevDay")?.addEventListener("click", () => { dataAtual.setDate(dataAtual.getDate() - 1); atualizarTudo(); });
+
+atualizarTudo();// dashboard.js
+const $ = (id) => document.getElementById(id);
+let dataAtual = new Date();
+
+// Carrega ou inicializa a grade
+let grade = JSON.parse(localStorage.getItem('minhaGradeCompleta')) || {
+    1: { nome: "Segunda", aulas: [] },
+    2: { nome: "Terça", aulas: [] },
+    3: { nome: "Quarta", aulas: [] },
+    4: { nome: "Quinta", aulas: [] },
+    5: { nome: "Sexta", aulas: [] }
+};
+
+function salvarGrade() {
+    localStorage.setItem('minhaGradeCompleta', JSON.stringify(grade));
+}
+
+// Função Principal de Atualização
+function atualizarTudo() {
     const diaIndex = dataAtual.getDay();
-    const aulasDoDia = gradeSemanal[diaIndex] || [];
+    
+    // 1. Atualiza Data e Texto Relativo
+    const hoje = new Date(); hoje.setHours(0,0,0,0);
+    const diff = Math.round((dataAtual - hoje) / (1000 * 60 * 60 * 24));
+    let textoRelativo = diff === 0 ? "Hoje" : diff === 1 ? "Amanhã" : `Daqui a ${diff} dias`;
+    
+    $("textFullDate").innerText = `${dataAtual.toLocaleDateString("pt-BR")} (${textoRelativo})`;
 
-    lista.innerHTML = aulasDoDia.map((aula, index) => `
-        <div class="info-block-card">
-            <strong>${aula.nome}</strong>
-            <p>${aula.hora} | Sala ${aula.sala}</p>
-            <button onclick="removerAula(${diaIndex}, ${index})">Remover</button>
-        </div>
-    `).join('');
+    // 2. Renderiza Grade do Dia (Persistente)
+    const container = $("timelineList");
+    container.innerHTML = "";
+    
+    const aulas = grade[diaIndex]?.aulas || [];
+    if(aulas.length === 0) container.innerHTML = "<p>Nenhuma aula configurada para este dia.</p>";
+    
+    aulas.forEach((aula, idx) => {
+        const div = document.createElement("div");
+        div.className = "aula-item";
+        div.innerHTML = `<strong>${aula.materia}</strong> <span>${aula.hora}</span> 
+                         <button onclick="removerAula(${diaIndex}, ${idx})">X</button>`;
+        container.appendChild(div);
+    });
 }
 
-// ✏️ FUNÇÕES DE EDIÇÃO (Chame estas funções no seu Modal de Configuração)
-window.adicionarAula = (diaIndex, novaAula) => {
-    gradeSemanal[diaIndex].push(novaAula);
-    localStorage.setItem('minhaGradeEscolar', JSON.stringify(gradeSemanal));
-    renderizarListaAulas();
+// 3. Funções de Controle para o Modal
+window.adicionarAula = (materia, hora) => {
+    const dia = dataAtual.getDay();
+    if(!grade[dia]) grade[dia] = { aulas: [] };
+    grade[dia].aulas.push({ materia, hora });
+    salvarGrade();
+    atualizarTudo();
 };
 
-window.removerAula = (diaIndex, index) => {
-    gradeSemanal[diaIndex].splice(index, 1);
-    localStorage.setItem('minhaGradeEscolar', JSON.stringify(gradeSemanal));
-    renderizarListaAulas();
+window.removerAula = (dia, idx) => {
+    grade[dia].aulas.splice(idx, 1);
+    salvarGrade();
+    atualizarTudo();
 };
 
-function atualizarStatusDia() {
-    const status = $("statusText");
-    if (!status) return;
-    
-    // Logica de feriado/ferias (exemplo simples)
-    const feriados = ["2026-06-04"]; // Exemplo Corpus Christi
-    const dataStr = dataAtual.toISOString().split('T')[0];
-    
-    if (feriados.includes(dataStr)) {
-        status.innerText = "Feriado: Aproveite o descanso!";
-    } else {
-        status.innerText = `Rotina de ${dataAtual.toLocaleDateString()}`;
-    }
-}
+// Eventos de Navegação
+$("btnNextDay")?.addEventListener("click", () => { dataAtual.setDate(dataAtual.getDate() + 1); atualizarTudo(); });
+$("btnPrevDay")?.addEventListener("click", () => { dataAtual.setDate(dataAtual.getDate() - 1); atualizarTudo(); });
 
-// ... (Restante da lógica de autenticação)
+atualizarTudo();
