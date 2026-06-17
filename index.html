@@ -1,61 +1,110 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard</title>
-    <style>
-        /* [Seu CSS original aqui...] */
-        /* Estilos específicos para o Modal que você pediu */
-        .modal { display: none; position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 9999; justify-content: center; align-items: center; }
-        .modal-content { background: white; padding: 25px; border-radius: 20px; width: 350px; }
-        .modal-content input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>B-ssola - Login</title>
+    <!-- Importação de ícones do Google Material Symbols -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- Importação da fonte do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Vinculação correta do CSS na mesma raiz -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="app-container">
+        <!-- Lado Esquerdo: Mensagem de Boas-vindas e Recursos -->
+        <div class="info-sidebar">
+            <h1 class="main-title">Organize seu dia com tranquilidade</h1>
+            <p class="main-subtitle">Um espaço pensado para você acompanhar suas atividades de forma clara e previsível.</p>
+            
+            <div class="features-list">
+                <div class="feature-item">
+                    <div class="feature-icon icon-blue">
+                        <span class="material-symbols-outlined">schedule</span>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Acompanhe o tempo</h3>
+                        <p>Veja quanto tempo falta para cada atividade</p>
+                    </div>
+                </div>
 
-<div class="dash-header">
-    <div class="user-text">
-        <h2 id="userNameDisplay">Olá, Usuário!</h2>
-    </div>
-</div>
+                <div class="feature-item">
+                    <div class="feature-icon icon-orange">
+                        <span class="material-symbols-outlined">notifications</span>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Avisos claros</h3>
+                        <p>Saiba com antecedência sobre mudanças</p>
+                    </div>
+                </div>
 
-<div class="week-nav-container">
-    <div class="day-tab">segunda<br><strong>1</strong></div>
-    <div class="day-tab">terça<br><strong>2</strong></div>
-    <div class="day-tab active">quarta<br><strong>3</strong></div>
-    <div class="day-tab">quinta<br><strong>4</strong></div>
-    <div class="day-tab">sexta<br><strong>5</strong></div>
-</div>
-
-<div id="atividadesList">
-    <div class="activity-item">
-        <div>
-            <strong>Matemática</strong><br><small>Prof. Maria | 10:00 - 10:50</small>
-            <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 65%;"></div></div>
+                <div class="feature-item">
+                    <div class="feature-icon icon-lightblue">
+                        <span class="material-symbols-outlined">visibility</span>
+                    </div>
+                    <div class="feature-text">
+                        <h3>Modo Foco</h3>
+                        <p>Menos distrações quando precisar</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <button onclick="abrirModal()">Editar</button>
+
+        <!-- Lado Direito: Formulário de Login (Card Flutuante) -->
+        <div class="auth-card-wrapper">
+            <div class="auth-card">
+                <div class="logo-area">
+                    <div class="logo-box">
+                        <span class="material-symbols-outlined logo-main-icon">calendar_month</span>
+                        <div class="logo-badge">
+                            <span class="material-symbols-outlined">star</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="auth-title">Bem-vindo(a)!</h2>
+                <p class="auth-subtitle">Vamos começar o seu dia</p>
+
+               <form id="loginForm">
+             <div class="input-group">
+                <label><span class="material-symbols-outlined label-icon">person</span> Nome ou E-mail</label>
+             <input type="text" id="loginEmail" placeholder="Digite seu nome ou e-mail" required>
+             </div>
+
+            <div class="input-group">
+              <label><span class="material-symbols-outlined label-icon">lock</span> Senha</label>
+              <div class="password-wrapper">
+                 <input type="password" id="loginPassword" placeholder="Digite sua senha" required>
+            <span class="material-symbols-outlined toggle-password" onclick="togglePasswordVisibility('loginPassword')">visibility</span>
+              </div>
+         </div>
+
+    <button type="submit" class="btn-primary">
+        <span class="material-symbols-outlined btn-icon">login</span> Entrar com Segurança
+    </button>
+</form>
+
+                <div class="auth-footer">
+                    <p>Não tem uma conta? <a href="cadastro.html" class="footer-link">Criar conta</a></p>
+                </div>
+
+                <div class="security-banner">
+                    <span class="material-symbols-outlined banner-icon">wb_sunny</span>
+                    <div class="banner-text">
+                        <h4>Espaço seguro e organizado</h4>
+                        <p>Aqui você encontra tudo sobre suas atividades do dia de forma clara e simples</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="current-date-badge">
+                <span class="material-symbols-outlined">calendar_today</span> terça-feira, 02 de junho de 2026
+            </div>
+        </div>
     </div>
-</div>
-
-<div id="editModal" class="modal">
-    <div class="modal-content">
-        <h3>Editar Aula</h3>
-        <input type="text" id="materiaInput" placeholder="Nome da Matéria">
-        <input type="text" id="profInput" placeholder="Nome do Professor">
-        <input type="time" id="inicioInput">
-        <input type="time" id="fimInput">
-        <button onclick="fecharModal()" style="width:100%; padding:10px; background:#3b82f6; color:white; border:none; border-radius:8px;">Concluir</button>
-    </div>
-</div>
-
-<script>
-    // Nome do Usuário fixo conforme e-mail
-    const email = "usuario@email.com";
-    document.getElementById("userNameDisplay").innerText = "Olá, " + email.split('@')[0];
-
-    // Funções de controle
-    function abrirModal() { document.getElementById("editModal").style.display = "flex"; }
-    function fecharModal() { document.getElementById("editModal").style.display = "none"; }
-</script>
+   <script type="module" src="./js/login.js"></script>
 </body>
 </html>
