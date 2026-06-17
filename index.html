@@ -3,46 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda Escolar - Login</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Painel do Aluno</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="auth-container">
-        <!-- Lado Esquerdo: Mensagem e Recursos -->
-        <div class="auth-info">
-            <h1>Organize seu dia com tranquilidade</h1>
-            <p>Um espaço pensado para você acompanhar suas atividades de forma clara e previsível.</p>
-            <div class="info-card">🕒 <div><strong>Acompanhe o tempo</strong><br><small>Veja quanto tempo falta para cada atividade</small></div></div>
-            <div class="info-card">🔔 <div><strong>Avisos claros</strong><br><small>Saiba com antecedência sobre mudanças</small></div></div>
-            <div class="info-card">👁️ <div><strong>Modo Foco</strong><br><small>Menos distrações quando precisar</small></div></div>
-        </div>
 
-        <!-- Lado Direito: Formulário de Autenticação -->
-        <div class="auth-card">
-            <div class="logo-area"><div class="logo-box">📅</div></div>
-            <h2 style="text-align:center; margin-bottom: 5px;">Bem-vindo(a)!</h2>
-            <p style="text-align:center; font-size:0.85rem; color:var(--text-muted); margin-bottom:20px;">Vamos começar o seu dia</p>
-            
-            <form id="loginForm">
-                <div class="form-group">
-                    <label>👤 Nome ou E-mail</label>
-                    <div class="input-wrapper"><input type="text" id="loginUser" placeholder="Digite seu nome ou e-mail" required></div>
-                </div>
-                <div class="form-group">
-                    <label>🔒 Senha</label>
-                    <div class="input-wrapper"><input type="password" id="loginPass" placeholder="Digite sua senha" required></div>
-                </div>
-                <div class="links-helper">
-                    <span></span>
-                    <a href="recuperar.html">Esqueceu a senha?</a>
-                </div>
-                <button type="submit" class="btn-primary">➔ Entrar com Segurança</button>
-            </form>
-            <p style="text-align:center; font-size:0.85rem; margin-top:20px;">Não tem uma conta? <a href="cadastro.html" style="color:var(--primary-color); font-weight:600; text-decoration:none;">Criar conta</a></p>
-            
-            <div class="footer-notice">☀️ <strong>Espaço seguro e organizado</strong><br>Aqui você encontra tudo sobre suas atividades.</div>
+    <header class="main-header">
+        <div class="user-greeting">
+            <h1 class="welcome-text">Olá, <span class="username">alicecfm1</span>! Bem-vindo(a) de volta</h1>
+            <p class="current-date">terça-feira, 02 de junho de 2026</p>
         </div>
+        <div class="header-actions">
+            <button class="action-btn">
+                <i>⚙️</i> Editar
+            </button>
+            <button class="action-btn">
+                <i>👁️</i> Foco
+            </button>
+            <button class="action-btn config-btn">
+                <i>🔧</i> Configurações
+            </button>
+            <button class="logout-btn">
+                <i>🚪</i> Sair
+            </button>
+        </div>
+    </header>
+
+    <div class="location-banner">
+        <span class="loc-icon">📍</span>
+        <span class="loc-text">Você está agora em: Sala 12 - Matemática</span>
     </div>
-    <script src="js/login.js"></script>
-</body>
-</html>
+
+    <main class="dashboard-content">
+        
+        <section class="activity-cards">
+            
+            <div class="card card-now">
+                <div class="card-header">
+                    <span class="status-badge now">Agora</span>
+                    <span class="card-time-now">22:05</span>
+                </div>
+                <div class="card-body">
+                    <div class="class-title-row">
+                        <div class="title-with-icon">
+                            <span class="class-icon blue-icon">📘</span>
+                            <h3>Matemática</h3>
+                        </div>
+                    </div>
+                    <div class="class-details">
+                        <p><span class="detail-label">👩‍🏫 Prof. Maria</span></p>
+                        <p><span class="detail-label">📍 Sala 12</span></p>
+                        <p><span class="detail-label">⏰ 10:00 - 10:50</span></p>
+                    </div>
+                    <div class="progress-section">
+                        <p class="progress-label">Progresso da aula</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 65%;"></div>
+                        </div>
+                        <p class="progress-time-left">Faltam aproximadamente 18 minutos</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-next">
+                <div class="card-header">
+                    <span class="status-badge next">A seguir</span>
+                </div>
+                <div class="card-body">
+                    <div class="title-with-icon">
+                        <span class="class-icon yellow-icon">🍴</span>
+                        <h3>Intervalo</h3>
+                    </div>
+                    <div class="class-details">
+                        <p><span class="detail-label">⏰ 10:50 - 11:10</span></p>
+                        <p><span class="detail-label">📍 Pátio</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-alert">
+                <div class="card-header">
+                    <span class="alert-icon">⚠️</span>
+                    <h3>Mudanças no Horário</h3>
+                </div>
+                <div class="card-body">
+                    <p class="alert-text">Prof. João substituirá a aula de História amanhã.</p>
+                    <p class="alert-subtext">Amanhã, 08:50</p>
+                </div>
+            </div>
+
+        </section>
+
+        <aside class="my-day-schedule">
+            <div class="schedule-header">
+                <span class="schedule-icon">📅</span>
+                <h2>Meu Dia</h2>
+                <span class="activity-count">6 Atividades</span>
+            </div>
+            
+            <div class="schedule-timeline">
+                
+                <div class="timeline-item past">
+                    <div class="timeline-icon">
+                        <span class="activity-type-icon green-icon">✏️</span>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="item-content">
+                        <h4>Português</h4>
+                        <p>⏰ 08:00 - 08:50 | 📍 Sala 12</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item past">
+                    <div class="timeline-icon">
+                        <span class="activity-type-icon green-icon">📚</span>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="item-content">
+                        <h4>História</h4>
+                        <p>⏰ 08:50 - 09:40 | 📍 Sala 15</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item past">
+                    <div class="timeline-icon">
+                        <span class="activity-type-icon green-icon">🍴</span>
+                        <div class="timeline-line"></div>
+                    </div>
+                    <div class="item-content">
+                        <h4>Intervalo</h4>
+                        <p>⏰ 09:40 - 10:00 | 📍 Pátio</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item current">
+                    <div class="timeline-icon">
+                        <span class="activity-type-icon current-icon blue-icon">📘</span>
