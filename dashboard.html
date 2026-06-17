@@ -1,102 +1,248 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agenda Escolar - Dashboard</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
 <body>
-    <div class="dashboard-wrapper">
-        <!-- Linha do Topo -->
-        <header class="dash-header">
-            <div>
-                <h2 id="welcomeUser">Olá, usuário! Bem-vindo(a) de volta</h2>
-                <small id="currentFullDate">terça-feira, 02 de junho de 2026</small>
-            </div>
-            <div style="display: flex; gap: 10px; align-items: center;">
-                <label><input type="checkbox" id="editToggle"> Modo Editar</label>
-                <label><input type="checkbox" id="focusToggle"> Modo Foco</label>
-                <button class="size-btn" style="width:auto; margin:0;" id="openSettingsBtn">⚙️ Configurações</button>
-                <button class="size-btn" style="width:auto; margin:0; background:#fee2e2; color:#ef4444;" id="logoutBtn">🚪 Sair</button>
-            </div>
-        </header>
 
-        <!-- Banner Dinâmico Inteligente (Muda se for Férias ou Feriado) -->
-        <div class="top-banner" id="statusBanner">
-            📍 Você está agora em: <strong>Sala 12 - Matemática</strong>
+<div class="dashboard-layout">
+
+    <!-- CABEÇALHO -->
+    <header class="dash-header">
+
+        <div class="header-left">
+            <h2 id="welcomeUserName">Olá, gugu2707y!</h2>
+
+            <small>
+                <span class="material-symbols-outlined">
+                    calendar_today
+                </span>
+
+                <span id="textFullDate">
+                    Carregando data...
+                </span>
+            </small>
         </div>
 
-        <!-- Seletor de Dias da Semana -->
-        <div class="week-grid" id="weekGrid">
-            <!-- Gerado via JavaScript -->
+        <div class="header-actions">
+
+            <label class="toggle-btn-label">
+                <input type="checkbox" id="checkEditMode">
+                Configurar Matérias
+            </label>
+
+            <label class="toggle-btn-label">
+                <input type="checkbox" id="checkFocusMode">
+                Foco
+            </label>
+
+            <button
+                class="btn-action-icon"
+                onclick="window.location.href='index.html'">
+
+                <span class="material-symbols-outlined">
+                    logout
+                </span>
+
+            </button>
+
         </div>
 
-        <!-- Painel Principal de Informações -->
-        <div class="main-content">
-            <!-- Lado Esquerdo -->
-            <div class="left-panel">
-                <div class="card-block">
-                    <span style="color:var(--primary-color); font-weight:600;">📘 Agora</span>
-                    <h2 style="margin-top:5px;">Matemática</h2>
-                    <p style="font-size:0.9rem; color:var(--text-muted); margin:5px 0;">👤 Prof. Maria  |  📍 Sala 12  |  ⏰ 10:00 - 10:50</p>
-                    <div style="margin-top:15px;">
-                        <small>Progresso da aula</small>
-                        <div class="progress-bar-container"><div class="progress-fill"></div></div>
-                        <small style="color:var(--text-muted);">Faltam aproximadamente 18 minutos</small>
+    </header>
+
+    <!-- BANNER -->
+
+    <div class="status-alert-banner" id="dashboardBanner">
+
+        <span class="material-symbols-outlined" id="bannerIcon">
+            info
+        </span>
+
+        <span id="bannerText">
+            Calculando distância temporal...
+        </span>
+
+    </div>
+
+    <!-- SEMANA -->
+
+    <div class="week-nav-container">
+
+        <button class="btn-action-icon" id="btnPrevDay">
+            <span class="material-symbols-outlined">
+                arrow_back
+            </span>
+        </button>
+
+        <div class="week-selector-grid" id="weekContainer"></div>
+
+        <button class="btn-action-icon" id="btnNextDay">
+            <span class="material-symbols-outlined">
+                arrow_forward
+            </span>
+        </button>
+
+    </div>
+
+    <!-- CONTEÚDO -->
+
+    <div class="dashboard-columns">
+
+        <!-- ESQUERDA -->
+
+        <div class="column-left">
+
+            <!-- AGORA -->
+
+            <div class="info-block-card" id="nowCard">
+
+                <span class="block-tag tag-blue">
+                    📘 AGORA
+                </span>
+
+                <h2 id="currentSubjectName">
+                    Verificando...
+                </h2>
+
+                <p id="currentSubjectMeta">
+                    --
+                </p>
+
+                <div class="progress-bar-wrapper">
+                    <div
+                        class="progress-bar-fill"
+                        id="currentProgressFill">
                     </div>
                 </div>
 
-                <div class="card-block" style="border-left: 5px solid #eab308; background: #fefce8;">
-                    <span style="color:#a16207; font-weight:600;">🍕 A seguir</span>
-                    <h3>Intervalo</h3>
-                    <p style="font-size:0.9rem; color:#a16207;">⏰ 10:50 - 11:10  |  📍 Pátio</p>
-                </div>
+                <small id="timeLeftText">
+                    Calculando...
+                </small>
 
-                <div class="card-block" style="border-left: 5px solid #ef4444; background: #fef2f2;">
-                    <span style="color:#b91c1c; font-weight:600;">⚠️ Mudanças no Horário</span>
-                    <p style="margin-top:5px; font-size:0.95rem;">Prof. João substituirá a aula de História amanhã.</p>
-                    <small style="color:var(--text-muted);">Amanhã, 08:50</small>
-                </div>
             </div>
 
-            <!-- Lado Direito: Timeline da Rotina Diária -->
-            <div class="right-panel">
-                <div style="display:flex; justify-content:space-between; margin-bottom:15px;">
-                    <h3>📅 Meu Dia</h3>
-                    <span id="activityCount" style="background:#e0f2fe; color:var(--primary-color); padding:2px 8px; border-radius:20px; font-size:0.8rem; font-weight:600;">6 Atividades</span>
-                </div>
-                <div style="display:flex; flex-direction:column; gap:12px; flex:1; overflow-y:auto;" id="timelineList">
-                    <!-- Gerado de forma estática programática para o exemplo -->
-                </div>
-                <small style="text-align:center; color:var(--text-muted); margin-top:15px;">Você está na atividade 4 de 6</small>
+            <!-- PRÓXIMA -->
+
+            <div class="info-block-card next-card">
+
+                <span class="block-tag tag-yellow">
+                    🍕 PRÓXIMA ATIVIDADE
+                </span>
+
+                <h3 id="nextSubjectName">
+                    --
+                </h3>
+
+                <p id="nextSubjectMeta">
+                    --
+                </p>
+
             </div>
+
+            <!-- EDITOR -->
+
+            <div class="edit-panel" id="editPanel">
+
+                <h4>
+                    ✍️ Personalizar Esta Aula
+                </h4>
+
+                <div class="edit-grid">
+
+                    <div class="edit-field">
+                        <label>Nome da Matéria</label>
+                        <input type="text" id="editInputName">
+                    </div>
+
+                    <div class="edit-field">
+                        <label>Ambiente / Sala</label>
+                        <input type="text" id="editInputRoom">
+                    </div>
+
+                    <div class="edit-field">
+                        <label>Início</label>
+                        <input
+                            type="text"
+                            id="editInputStart"
+                            placeholder="07:30">
+                    </div>
+
+                    <div class="edit-field">
+                        <label>Término</label>
+                        <input
+                            type="text"
+                            id="editInputEnd"
+                            placeholder="08:20">
+                    </div>
+
+                </div>
+
+                <button
+                    class="btn-save-box"
+                    id="btnSaveEdit">
+
+                    Salvar e Atualizar Dia
+
+                </button>
+
+            </div>
+
         </div>
+
+        <!-- DIREITA -->
+
+        <aside class="column-right">
+
+            <h3>📅 Calendário 2026</h3>
+
+            <div class="datepicker-container">
+
+                <div class="datepicker-header">
+
+                    <button
+                        class="btn-action-icon"
+                        id="prevMonth">
+
+                        <span class="material-symbols-outlined">
+                            chevron_left
+                        </span>
+
+                    </button>
+
+                    <span id="calendarMonthYear">
+                        Junho 2026
+                    </span>
+
+                    <button
+                        class="btn-action-icon"
+                        id="nextMonth">
+
+                        <span class="material-symbols-outlined">
+                            chevron_right
+                        </span>
+
+                    </button>
+
+                </div>
+
+                <div
+                    class="datepicker-grid"
+                    id="calendarDaysGrid">
+                </div>
+
+            </div>
+
+            <h3 style="margin-top:25px;">
+                ⏱️ Grade Completa
+            </h3>
+
+            <div
+                class="timeline-container"
+                id="timelineContainer">
+            </div>
+
+        </aside>
+
     </div>
 
-    <!-- ⚙️ Sidebar de Customização -->
-    <div class="settings-sidebar" id="settingsSidebar">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-            <h3>⚙️ Configurações</h3>
-            <button id="closeSettingsBtn" style="background:none; border:none; font-size:1.2rem; cursor:pointer;">✕</button>
-        </div>
-        
-        <label style="font-weight:600; font-size:0.9rem;">🎨 Cor do Tema</label>
-        <div class="theme-options">
-            <div class="circle-opt active" style="background:#3b82f6;" data-theme="azul"></div>
-            <div class="circle-opt" style="background:#10b981;" data-theme="verde"></div>
-            <div class="circle-opt" style="background:#8b5cf6;" data-theme="roxo"></div>
-            <div class="circle-opt" style="background:#f97316;" data-theme="laranja"></div>
-        </div>
+</div>
 
-        <label style="font-weight:600; font-size:0.9rem; display:block; margin-top:20px; margin-bottom:10px;">🔤 Tamanho do Texto</label>
-        <button class="size-btn" data-size="pequeno">Pequeno</button>
-        <button class="size-btn active" data-size="medio">Médio</button>
-        <button class="size-btn" data-size="grande">Grande</button>
-    </div>
+<script src="feriados.js"></script>
+<script src="dashboard.js"></script>
 
-    <!-- Scripts fundamentais -->
-    <script src="js/feriados.js"></script>
-    <script src="js/dashboard.js"></script>
 </body>
-</html>
