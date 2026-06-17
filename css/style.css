@@ -1,4 +1,6 @@
-/* Configurações Gerais de Reset */
+/* ==========================================================================
+   1. CONFIGURAÇÕES GERAIS DE RESET E VARIÁVEIS DE TRANSIÇÃO
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -6,13 +8,20 @@
     font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
+/* Suaviza a transição de toda a estrutura ao alternar modos (como o Foco) */
+body,
+.dash-header,
+.week-nav-container,
+.timeline-event-item,
+.current-activity-card,
+#currentSubjectContainer,
+.next-activity-card,
+#nextSubjectContainer {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 body {
-    background: linear-gradient(
-        90deg,
-        #edf7ff 0%,
-        #edf7ff 65%,
-        #f8f6f2 100%
-    );
+    background-color: #ebf1f5;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -20,71 +29,64 @@ body {
     color: #1e293b;
 }
 
-/* Estrutura Principal Flexbox Split Screen */
+/* ==========================================================================
+   2. ESTRUTURA PRINCIPAL (FLEXBOX SPLIT SCREEN - TELA DE LOGIN)
+   ========================================================================== */
 .app-container {
     display: flex;
     width: 100%;
-    max-width: 1400px;
-    min-height: 100vh;
+    max-width: 1200px;
+    height: 100vh;
     padding: 40px;
     gap: 80px;
     align-items: center;
 }
 
-/* Painel Esquerdo */
+/* Painel Esquerdo de Recursos */
 .info-sidebar {
     flex: 1;
     max-width: 550px;
 }
 
 .main-title {
-    font-size: 4rem;
-    font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: -2px;
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.2;
     color: #0f172a;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
 }
 
 .main-subtitle {
     font-size: 1rem;
-    color: #64748b;
-    line-height: 1.8;
-    margin-bottom: 40px;
+    color: #475569;
+    line-height: 1.5;
+    margin-bottom: 32px;
 }
 
-/* Lista de Recursos */
+/* Lista de Recursos Dinâmicos */
 .features-list {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 16px;
 }
 
 .feature-item {
     display: flex;
     align-items: center;
     gap: 16px;
-    background: rgba(255,255,255,0.75);
-    backdrop-filter: blur(10px);
-    padding: 20px 24px;
-    border-radius: 18px;
-    box-shadow: 0 5px 20px rgba(15,23,42,.05);
-    border: 1px solid rgba(255,255,255,.5);
-    transition: .3s;
-}
-
-.feature-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 28px rgba(15,23,42,.08);
+    background: #ffffff;
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .feature-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: 14px;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
 }
 
 .feature-icon span {
@@ -92,23 +94,14 @@ body {
     color: white;
 }
 
-.icon-blue {
-    background-color: #3b82f6;
-}
-
-.icon-orange {
-    background-color: #f97316;
-}
-
-.icon-lightblue {
-    background-color: #0ea5e9;
-}
+.icon-blue { background-color: #0284c7; }
+.icon-orange { background-color: #f59e0b; }
+.icon-lightblue { background-color: #0ea5e9; }
 
 .feature-text h3 {
     font-size: 0.95rem;
     font-weight: 600;
     color: #1e293b;
-    margin-bottom: 4px;
 }
 
 .feature-text p {
@@ -116,28 +109,27 @@ body {
     color: #64748b;
 }
 
-/* Área Direita */
+/* ==========================================================================
+   3. ÁREA DE AUTENTICAÇÃO (CARD DE LOGIN / CADASTRO)
+   ========================================================================== */
 .auth-card-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: 32px;
 }
 
 .auth-card {
-    background: rgba(255,255,255,0.95);
-    backdrop-filter: blur(15px);
-    width: 430px;
-    padding: 42px;
-    border-radius: 28px;
-    box-shadow:
-        0 30px 60px rgba(15,23,42,.10),
-        0 10px 20px rgba(15,23,42,.05);
+    background: #ffffff;
+    width: 420px;
+    padding: 40px;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.04);
     text-align: center;
 }
 
-/* Logo */
-.logo-area {
+/* Customização do Logo */
+.logo-wrapper {
     display: flex;
     justify-content: center;
     margin-bottom: 24px;
@@ -145,32 +137,28 @@ body {
 
 .logo-box {
     position: relative;
-    background: linear-gradient(
-        135deg,
-        #4fa1f0,
-        #3b82f6
-    );
-    width: 82px;
-    height: 82px;
-    border-radius: 24px;
+    background: #f1f5f9;
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 10px 20px rgba(59,130,246,.25);
+    box-shadow: 0px 4px 12px rgba(15, 23, 42, 0.1);
 }
 
 .logo-main-icon {
-    font-size: 38px;
+    font-size: 36px;
     color: white;
 }
 
 .logo-badge {
     position: absolute;
-    bottom: -4px;
+    top: -4px;
     right: -4px;
-    background: #ffb74d;
-    width: 24px;
-    height: 24px;
+    background: #ef4444;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -179,65 +167,58 @@ body {
 }
 
 .logo-badge span {
-    font-size: 14px;
+    font-size: 10px;
     color: white;
 }
 
-/* Títulos */
 .auth-title {
     font-size: 1.6rem;
-    font-weight: 700;
+    font-weight: 800;
     color: #0f172a;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }
 
 .auth-subtitle {
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     color: #64748b;
     margin-bottom: 32px;
 }
 
-/* Inputs */
-.input-group {
+/* Estilização dos Inputs */
+.input-group-label {
     text-align: left;
-    margin-bottom: 18px;
+    margin-bottom: 20px;
 }
 
-.input-group label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #334155;
-    margin-bottom: 8px;
-}
-
-.label-icon {
-    font-size: 16px;
+.input-label {
+    font-size: 11px;
+    font-weight: 700;
     color: #64748b;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
 }
 
-.input-group input {
+.input-group-layout {
     width: 100%;
-    height: 54px;
     padding: 14px 16px;
-    border-radius: 14px;
+    background: #f8fafc;
     border: 1px solid #e2e8f0;
-    background: #f8fbff;
-    font-size: 0.9rem;
-    color: #1e293b;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    color: #0f172a;
     outline: none;
-    transition: all 0.25s ease;
+    transition: all 0.2s;
 }
 
-.input-group input:focus {
-    border-color: #3b82f6;
-    background: white;
-    box-shadow: 0 0 0 4px rgba(59,130,246,.10);
+.input-group-layout:focus {
+    border-color: #0f172a;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.05);
 }
 
-/* Password */
+/* Password Visibility Wrapper */
 .password-wrapper {
     position: relative;
     display: flex;
@@ -246,69 +227,60 @@ body {
 
 .toggle-password {
     position: absolute;
-    right: 14px;
-    cursor: pointer;
+    right: 16px;
     color: #64748b;
+    cursor: pointer;
     font-size: 20px;
     user-select: none;
 }
 
-/* Recuperar senha */
+/* Botões da Autenticação */
 .form-actions-link {
-    text-align: right;
-    margin-top: -10px;
+    display: flex;
+    justify-content: right;
+    margin-top: -12px;
     margin-bottom: 24px;
 }
 
 .forgot-password {
     font-size: 0.85rem;
-    color: #3b82f6;
+    color: #0ea5e9;
     text-decoration: none;
     font-weight: 500;
 }
 
-/* Botão Principal */
-.btn-primary {
+.btn-primary-layout {
     width: 100%;
-    height: 54px;
-    background: linear-gradient(
-        90deg,
-        #4fa1f0,
-        #3b82f6
-    );
+    padding: 14px;
     color: white;
     border: none;
-    border-radius: 14px;
+    border-radius: 12px;
     font-size: 0.95rem;
     font-weight: 600;
     cursor: pointer;
+    background: #0f172a;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    transition: .3s;
-    box-shadow: 0 6px 18px rgba(59,130,246,.25);
+    transition: background 0.2s;
 }
 
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(59,130,246,.35);
+.btn-primary-layout:hover {
+    background: #1e293b;
 }
 
-.btn-icon {
-    font-size: 20px;
-}
-
-/* Rodapé */
 .auth-footer {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
     margin-top: 24px;
-    margin-bottom: 24px;
-    font-size: 0.88rem;
+    font-size: 0.85rem;
     color: #64748b;
 }
 
 .footer-link {
-    color: #3b82f6;
+    color: #0f172a;
     text-decoration: none;
     font-weight: 600;
 }
@@ -317,19 +289,20 @@ body {
     color: #1e293b;
     text-decoration: none;
     font-weight: 600;
-    border: 1px solid #cbd5e1;
-    padding: 4px 8px;
-    border-radius: 6px;
-    margin-left: 4px;
+    border-bottom: 2px solid #cbd5e1;
+    padding-bottom: 2px;
+    transition: all 0.2s;
+    margin-left: 2px;
 }
 
-/* Banner Segurança */
+/* Banner Superior Seguro de Desenvolvimento */
 .security-banner {
-    background: #fff8ec;
-    border: 1px solid #ffe0b2;
-    border-radius: 14px;
-    padding: 14px;
+    background: #fffbeb;
+    border: 1px solid #fef3c7;
+    border-radius: 12px;
+    padding: 12px;
     display: flex;
+    align-items: center;
     gap: 12px;
     text-align: left;
 }
@@ -343,36 +316,37 @@ body {
 .banner-text h4 {
     font-size: 0.85rem;
     font-weight: 600;
-    color: #b45309;
+    color: #78350f;
     margin-bottom: 2px;
 }
 
 .banner-text p {
-    font-size: 0.78rem;
-    color: #d97706;
+    font-size: 0.75rem;
+    color: #b45309;
     line-height: 1.4;
 }
 
-/* Data Atual */
+/* Card Data Atual Flutuante Token */
 .current-date-badge {
-    background: white;
-    padding: 10px 18px;
-    border-radius: 30px;
-    font-size: 0.8rem;
+    background: #ffffff;
+    padding: 2px 10px;
+    border-radius: 99px;
+    border: 1px solid #e2e8f0;
     color: #64748b;
     display: flex;
     align-items: center;
     gap: 6px;
-    box-shadow: 0 4px 12px rgba(0,0,0,.05);
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.01);
 }
 
 .current-date-badge span {
-    font-size: 16px;
+    font-size: 14px;
 }
 
-/* Responsividade */
-@media (max-width: 900px) {
-
+/* ==========================================================================
+   Responsividade Básica
+   ========================================================================== */
+@media (max-width: 992px) {
     .app-container {
         flex-direction: column;
         padding: 20px;
@@ -384,16 +358,61 @@ body {
         max-width: 100%;
     }
 
-    .main-title {
-        font-size: 2.8rem;
-    }
-
     .features-list {
-        display: none;
+        display: none; /* Oculta listas de recursos em telas mobile/pequenas */
     }
+}
 
-    .auth-card {
-        width: 100%;
-        max-width: 430px;
-    }
+/* ==========================================================================
+   4. SEÇÃO FACULTATIVA: MODO FOCO PREMIUM (FEITO À MÃO) - COGNITIVO
+   ========================================================================== */
+
+/* Quando o Modo Foco está ATIVO no 'body' */
+body.focus-mode-active {
+    background-color: #fafafa !important; /* Fundo limpo e focado */
+}
+
+/* Escondendo elementos de navegação e alertas para evitar distração */
+body.focus-mode-active .status_alert_banner,
+body.focus-mode-active .current_date_badge,
+body.focus-mode-active h1,
+body.focus-mode-active h2,
+body.focus-mode-active small {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-10px);
+}
+
+/* Centraliza e destaca o Bloco de "AGORA" (Seu container principal de aula) */
+body.focus-mode-active .dashboard-layout > div:nth-child(1),
+body.focus-mode-active #currentSubjectContainer {
+    transform: scale(1.02);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08) !important;
+    border: 1px solid rgba(15, 23, 42, 0.08) !important;
+    background: linear-gradient(135deg, #ffffff, #f8fafc) !important;
+    max-width: 800px;
+    margin: 40px auto !important;
+    border-radius: 24px;
+    padding: 40px;
+}
+
+/* Destaca o título principal da atividade em execução */
+body.focus-mode-active #currentSubjectName {
+    font-size: 2.4rem !important;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: #0f172a !important;
+}
+
+/* Deixa o card da Próxima Atividade útil na parte inferior */
+body.focus-mode-active .next-activity-card,
+body.focus-mode-active #nextSubjectContainer,
+body.focus-mode-active div[style*="background-color: rgb(241, 245, 249)"] {
+    max-width: 600px;
+    margin: 0 auto !important;
+    opacity: 0.6;
+    background: rgb(255, 255, 255) !important;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02) !important;
 }

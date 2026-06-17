@@ -1,68 +1,54 @@
-'use strict';
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-auth.js";
+import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.14.0/firebase-firestore.js";
 
-// Toggle mostrar/ocultar senha
-document.querySelectorAll('.toggle-password').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const input = btn.closest('.password-wrapper').querySelector('input');
-    const show = btn.querySelector('.icon-eye-show');
-    const hide = btn.querySelector('.icon-eye-hide');
-    if (input.type === 'password') {
-      input.type = 'text';
-      show.style.display = 'none';
-      hide.style.display = '';
-    } else {
-      input.type = 'password';
-      show.style.display = '';
-      hide.style.display = 'none';
+const firebaseConfig = {
+    apiKey: "AIzaSyCtG101f6qujclXRCWmdHJVcbqlKjFXVM",
+    authDomain: "bancodedadosdourado3.firebaseapp.com",
+    projectId: "bancodedadosdourado3",
+    storageBucket: "bancodedadosdourado3.firebasestorage.app",
+    messagingSenderId: "211252758015",
+    appId: "1:211252758015:web:82ccfc9e426a8c2d60d53d"
+};
+
+// Inicializar o Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const form = document.getElementById("cadForm");
+
+form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // Capturar os valores dos campos do formulário
+    const nome = form.querySelector('input[type="text"]').value;
+    const email = form.querySelector('input[type="email"]').value;
+    const senha = document.getElementById("regPassword").value;
+    const confirmar = document.getElementById("regConfirmPassword").value;
+
+    // Validação da palavra-passe
+    if (senha !== confirmar) {
+        alert("As senhas não coincidem!");
+        return; // Interrompe a execução
     }
-  });
-});
 
-document.getElementById('register-form').addEventListener('submit', function(e) {
-  e.preventDefault();
+    try {
+        // 1. Criar o utilizador no Firebase Authentication
+        const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
+        const user = userCredential.user;
 
-  const name    = document.getElementById('reg-name').value.trim();
-  const email   = document.getElementById('reg-email').value.trim();
-  const pass    = document.getElementById('reg-password').value;
-  const confirm = document.getElementById('reg-confirm').value;
+        // 2. Guardar os dados adicionais no Firestore Database
+        await setDoc(doc(db, "usuarios", user.uid), {
+            nome: nome,
+            email: email
+        });
 
-  const errName    = document.getElementById('error-reg-name');
-  const errEmail   = document.getElementById('error-reg-email');
-  const errPass    = document.getElementById('error-reg-password');
-  const errConfirm = document.getElementById('error-reg-confirm');
-  const globalErr  = document.getElementById('register-error');
+        alert("Conta criada com sucesso 🔥");
+        window.location.href = "index.html";
 
-  errName.textContent = errEmail.textContent = errPass.textContent = errConfirm.textContent = globalErr.textContent = '';
-
-  let valid = true;
-
-  if (!name) {
-    errName.textContent = 'Preencha seu nome completo.';
-    valid = false;
-  }
-  if (!email || !email.includes('@')) {
-    errEmail.textContent = 'Digite um e-mail válido.';
-    valid = false;
-  }
-  if (pass.length < 4) {
-    errPass.textContent = 'A senha deve ter pelo menos 4 caracteres.';
-    valid = false;
-  }
-  if (pass !== confirm) {
-    errConfirm.textContent = 'As senhas não coincidem.';
-    valid = false;
-  }
-  if (!valid) return;
-
-  const users = JSON.parse(localStorage.getItem('bssola_users') || '[]');
-  if (users.find(u => u.email.toLowerCase() === email.toLowerCase())) {
-    globalErr.textContent = 'Já existe uma conta com este e-mail.';
-    return;
-  }
-
-  users.push({ name, email, password: pass });
-  localStorage.setItem('bssola_users', JSON.stringify(users));
-
-  sessionStorage.setItem('bssola_session', JSON.stringify({ name, email }));
-  window.location.href = 'dashboard.html';
+    } catch (error) {
+        console.error("Erro ao registar:", error);
+        alert("Erro: " + error.message);
+    }
 });
