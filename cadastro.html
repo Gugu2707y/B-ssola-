@@ -3,171 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>B-ssola - Criar Conta</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>Agenda Escolar - Criar Conta</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="app-container">
-        <div class="info-sidebar">
-            <h1 class="main-title">Organize seu dia com tranquilidade</h1>
-            <p class="main-subtitle">Um espaço pensado para você acompanhar suas atividades de forma clara e previsível.</p>
-
-            <div class="features-list">
-                <div class="feature-item">
-                    <div class="feature-icon icon-blue">
-                        <span class="material-symbols-outlined">schedule</span>
-                    </div>
-                    <div class="feature-text">
-                        <h3>Acompanhe o tempo</h3>
-                        <p>Veja quanto tempo falta para cada atividade</p>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon icon-orange">
-                        <span class="material-symbols-outlined">notifications</span>
-                    </div>
-                    <div class="feature-text">
-                        <h3>Avisos claros</h3>
-                        <p>Saiba com antecedência sobre mudanças</p>
-                    </div>
-                </div>
-                <div class="feature-item">
-                    <div class="feature-icon icon-lightblue">
-                        <span class="material-symbols-outlined">visibility</span>
-                    </div>
-                    <div class="feature-text">
-                        <h3>Modo Foco</h3>
-                        <p>Menos distrações quando precisar</p>
-                    </div>
-                </div>
-            </div>
+    <div class="auth-container">
+        <div class="auth-info">
+            <h1>Organize seu dia com tranquilidade</h1>
+            <p>Faça o seu cadastro para começar a estruturar sua rotina de estudos de forma eficiente.</p>
         </div>
-
-        <div class="auth-card-wrapper">
-            <div class="auth-card">
-                <div class="logo-area">
-                    <div class="logo-box">
-                        <span class="material-symbols-outlined logo-main-icon">calendar_month</span>
-                        <div class="logo-badge">
-                            <span class="material-symbols-outlined">star</span>
-                        </div>
-                    </div>
-                </div>
-
-                <h2 class="auth-title">Criar Conta</h2>
-                <p class="auth-subtitle">Preencha seus dados para começar</p>
-
-                <form id="registerForm" onsubmit="event.preventDefault(); window.location.href='index.html';">
-                    <div class="input-group">
-                        <label><span class="material-symbols-outlined label-icon">person</span> Nome completo</label>
-                        <input type="text" placeholder="Digite seu nome completo" required>
-                    </div>
-
-                    <div class="input-group">
-                        <label><span class="material-symbols-outlined label-icon">mail</span> E-mail</label>
-                        <input type="email" placeholder="seu@email.com" required>
-                    </div>
-
-                    <div class="input-group">
-                        <label><span class="material-symbols-outlined label-icon">lock</span> Senha</label>
-                        <div class="password-wrapper">
-                            <input type="password" id="regPassword" placeholder="Digite sua senha" required>
-                            <span class="material-symbols-outlined toggle-password" onclick="togglePasswordVisibility('regPassword')">visibility</span>
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <label><span class="material-symbols-outlined label-icon">verified_user</span> Confirmar senha</label>
-                        <div class="password-wrapper">
-                            <input type="password" id="regConfirmPassword" placeholder="Digite a senha novamente" required>
-                            <span class="material-symbols-outlined toggle-password" onclick="togglePasswordVisibility('regConfirmPassword')">visibility</span>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn-primary">
-                        <span class="material-symbols-outlined btn-icon">how_to_reg</span> Criar Conta
-                    </button>
-                </form>
-
-                <div class="auth-footer">
-                    <p>Já tem uma conta? <a href="index.html" class="footer-link-bordered">Fazer login</a></p>
-                </div>
-
-                <div class="security-banner">
-                    <span class="material-symbols-outlined banner-icon">wb_sunny</span>
-                    <div class="banner-text">
-                        <h4>Espaço seguro e organized</h4>
-                        <p>Aqui você encontra tudo sobre suas atividades do dia de forma clara e simples</p>
-                    </div>
-                </div>
-            </div>
-            <div class="current-date-badge">
-                <span class="material-symbols-outlined">calendar_today</span> terça-feira, 02 de junho de 2026
-            </div>
+        <div class="auth-card">
+            <div class="logo-area"><div class="logo-box">📅</div></div>
+            <h2 style="text-align:center; margin-bottom:20px;">Criar Conta</h2>
+            <form id="cadForm">
+                <div class="form-group"><label>👤 Nome completo</label><div class="input-wrapper"><input type="text" required placeholder="Digite seu nome"></div></div>
+                <div class="form-group"><label>✉️ E-mail</label><div class="input-wrapper"><input type="email" required placeholder="seu@email.com"></div></div>
+                <div class="form-group"><label>🔒 Senha</label><div class="input-wrapper"><input type="password" required placeholder="Digite sua senha"></div></div>
+                <div class="form-group"><label>✓ Confirmar senha</label><div class="input-wrapper"><input type="password" required placeholder="Digite novamente"></div></div>
+                <button type="submit" class="btn-primary">➔ Criar Conta</button>
+            </form>
+            <p style="text-align:center; font-size:0.85rem; margin-top:20px;">Já tem uma conta? <a href="index.html" style="color:var(--primary-color); font-weight:600; text-decoration:none;">Fazer login</a></p>
         </div>
     </div>
-    <script src="cadastro.js"></script>
-
-<script type="module">
- 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-firestore.js";
- 
-const firebaseConfig = {
-  apiKey: "SUA_API_KEY_AQUI",
-  authDomain: "SEU_AUTH_DOMAIN",
-  projectId: "SEU_PROJECT_ID",
-  storageBucket: "SEU_STORAGE_BUCKET",
-  messagingSenderId: "SEU_MESSAGING_ID",
-  appId: "SEU_APP_ID",
-  measurementId: "SEU_MEASUREMENT_ID" // se tiver
-};
- 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
- 
-const form = document.getElementById("registerForm");
- 
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
- 
-  const nome = form.querySelector('input[type="text"]').value;
-  const email = form.querySelector('input[type="email"]').value;
-  const senha = document.getElementById("regPassword").value;
-  const confirmarSenha = document.getElementById("regConfirmPassword").value;
- 
-  if (senha !== confirmarSenha) {
-    alert("As senhas não coincidem!");
-    return;
-  }
- 
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
-    const user = userCredential.user;
- 
-    await setDoc(doc(db, "usuarios", user.uid), {
-      nome: nome,
-      email: email,
-      criadoEm: new Date()
-    });
- 
-    alert("Conta criada com sucesso 🔥");
-    window.location.href = "index.html";
- 
-  } catch (error) {
-    alert("Erro: " + error.message);
-  }
-});
- 
-</script>
-
-
-
+    <script src="js/cadastro.js"></script>
 </body>
 </html>
