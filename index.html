@@ -2,72 +2,60 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard Aluno</title>
+    <title>Dashboard</title>
     <style>
-        /* Cole TODO o seu CSS original aqui dentro */
-        /* E mantenha estas classes essenciais para o layout que você quer: */
-        .dash-header { display: flex; justify-content: space-between; align-items: center; background: white; padding: 20px; border-radius: 20px; margin-bottom: 20px; }
-        .week-nav-container { display: flex; justify-content: center; background: white; padding: 15px; border-radius: 15px; margin-bottom: 20px; }
-        .day-tab { padding: 10px 20px; cursor: pointer; text-align: center; }
-        .day-tab.active { background: #3b82f6; color: white; border-radius: 10px; }
-        .grid-layout { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
-        .progress-bar-fill { height: 10px; background: #3b82f6; border-radius: 5px; }
+        /* [Seu CSS original aqui...] */
+        /* Estilos específicos para o Modal que você pediu */
+        .modal { display: none; position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 9999; justify-content: center; align-items: center; }
+        .modal-content { background: white; padding: 25px; border-radius: 20px; width: 350px; }
+        .modal-content input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 8px; }
     </style>
 </head>
 <body>
 
-<div class="dashboard-container">
-    <header class="dash-header">
-        <div class="user-text">
-            <h2 id="userName">Olá, Usuário!</h2>
-            <p id="currentDate"></p>
-        </div>
-        <div class="header-actions">
-            <button onclick="abrirConfig()">⚙️</button>
-        </div>
-    </header>
+<div class="dash-header">
+    <div class="user-text">
+        <h2 id="userNameDisplay">Olá, Usuário!</h2>
+    </div>
+</div>
 
-    <div class="week-nav-container" id="weekNav">
-        </div>
+<div class="week-nav-container">
+    <div class="day-tab">segunda<br><strong>1</strong></div>
+    <div class="day-tab">terça<br><strong>2</strong></div>
+    <div class="day-tab active">quarta<br><strong>3</strong></div>
+    <div class="day-tab">quinta<br><strong>4</strong></div>
+    <div class="day-tab">sexta<br><strong>5</strong></div>
+</div>
 
-    <div class="grid-layout">
-        <div class="main-content">
-            <div id="agoraCard" class="card">
-                <h3>AGORA</h3>
-                <h2 id="currentAula">Carregando...</h2>
-                <div class="progress-bar-container"><div class="progress-bar-fill" id="progresso"></div></div>
-            </div>
-            <div id="proximaCard" class="card">
-                <h3>PRÓXIMA ATIVIDADE</h3>
-                <p id="nextAula">Carregando...</p>
-            </div>
+<div id="atividadesList">
+    <div class="activity-item">
+        <div>
+            <strong>Matemática</strong><br><small>Prof. Maria | 10:00 - 10:50</small>
+            <div class="progress-bar-container"><div class="progress-bar-fill" style="width: 65%;"></div></div>
         </div>
-        <div class="sidebar">
-            <div class="card"><h3>GRADE</h3></div>
-        </div>
+        <button onclick="abrirModal()">Editar</button>
+    </div>
+</div>
+
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <h3>Editar Aula</h3>
+        <input type="text" id="materiaInput" placeholder="Nome da Matéria">
+        <input type="text" id="profInput" placeholder="Nome do Professor">
+        <input type="time" id="inicioInput">
+        <input type="time" id="fimInput">
+        <button onclick="fecharModal()" style="width:100%; padding:10px; background:#3b82f6; color:white; border:none; border-radius:8px;">Concluir</button>
     </div>
 </div>
 
 <script>
-    // 1. Nome do Usuário via Email
-    const userEmail = "aluno@exemplo.com";
-    document.getElementById("userName").innerText = "Olá, " + userEmail.split('@')[0];
+    // Nome do Usuário fixo conforme e-mail
+    const email = "usuario@email.com";
+    document.getElementById("userNameDisplay").innerText = "Olá, " + email.split('@')[0];
 
-    // 2. Calendário Semanal Dinâmico
-    const dias = ['segunda', 'terça', 'quarta', 'quinta', 'sexta'];
-    const nav = document.getElementById('weekNav');
-    dias.forEach((dia, i) => {
-        nav.innerHTML += `<div class="day-tab ${i===2?'active':''}">${dia}<br><strong>${i+1}</strong></div>`;
-    });
-
-    // 3. Atualização de Progresso (Simulação)
-    function atualizarDashboard() {
-        document.getElementById("currentAula").innerText = "Matemática";
-        document.getElementById("nextAula").innerText = "Intervalo";
-        document.getElementById("progresso").style.width = "65%";
-    }
-    
-    atualizarDashboard();
+    // Funções de controle
+    function abrirModal() { document.getElementById("editModal").style.display = "flex"; }
+    function fecharModal() { document.getElementById("editModal").style.display = "none"; }
 </script>
 </body>
 </html>
