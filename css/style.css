@@ -78,7 +78,7 @@ body,
     width: 100%;
     max-width: 1140px;
     padding: 20px;
-    gap: 20px; /* Reduzido de 80px para aproximar os cards de rotina e grade */
+    gap: 20px;
     align-items: flex-start;
     justify-content: center;
 }
@@ -94,7 +94,7 @@ body,
 }
 
 /* ==========================================================================
-   🧱 2. ESTRUTURA PRINCIPAL (SPLIT SCREEN - TELA DE LOGIN)
+   🧱 2. ESTRUTURA PRINCIPAL (SPLIT SCREEN)
    ========================================================================== */
 .info-sidebar {
     flex: 1;
@@ -117,7 +117,6 @@ body,
     margin-bottom: 40px;
 }
 
-/* Lista de Recursos Dinâmicos */
 .features-list {
     display: flex;
     flex-direction: column;
@@ -182,7 +181,6 @@ body,
     box-shadow: 0 10px 30px rgba(0, 60, 120, 0.04);
 }
 
-/* Customização da Logo */
 .logo-area {
     display: flex;
     justify-content: center;
@@ -237,7 +235,6 @@ body,
     margin-bottom: 28px;
 }
 
-/* Estilização dos Inputs */
 .input-group {
     text-align: left;
     margin-bottom: 18px;
@@ -276,7 +273,6 @@ body,
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.08);
 }
 
-/* Password Wrapper */
 .password-wrapper {
     position: relative;
     display: flex;
@@ -305,7 +301,6 @@ body,
     font-weight: 500;
 }
 
-/* Botão Principal */
 .btn-primary {
     width: 100%;
     background: #3b82f6;
@@ -327,7 +322,6 @@ body,
     background: var(--primary-hover);
 }
 
-/* Links do Rodapé */
 .auth-footer {
     margin-top: 20px;
     margin-bottom: 20px;
@@ -341,7 +335,6 @@ body,
     font-weight: 600;
 }
 
-/* Banner Inferior Seguro Amarelo */
 .security-banner {
     background: #fff8ec;
     border: 1px solid #ffe0b2;
@@ -370,7 +363,6 @@ body,
     margin-top: 1px;
 }
 
-/* Data Atual Flutuante Embaixo */
 .current-date-badge {
     background: #ffffff;
     padding: 6px 16px;
@@ -399,7 +391,6 @@ body,
     gap: 14px;
 }
 
-/* Header principal */
 .dash-header {
     background: #ffffff;
     border-radius: 20px;
@@ -416,7 +407,6 @@ body,
     gap: 14px;
 }
 
-/* Avatar em formato de Bússola */
 .user-avatar-wrapper {
     position: relative;
     width: 44px;
@@ -471,7 +461,6 @@ body,
     font-size: 14px;
 }
 
-/* Ações do Header (Foco / Configurar Matérias / Botões) */
 .header-actions {
     display: flex;
     align-items: center;
@@ -584,7 +573,6 @@ body,
     margin-top: 4px;
 }
 
-/* Estado Ativo/Selecionado no Calendário Semanal */
 .day-tab.active {
     background: var(--primary-color);
 }
@@ -597,7 +585,6 @@ body,
     color: #ffffff;
 }
 
-/* Banner Informativo Fixo de Rotina */
 .status-alert-banner {
     background: #e0f2fe;
     border: 1px solid #bae6fd;
@@ -647,7 +634,6 @@ body,
     color: #0284c7;
 }
 
-/* Espaçamento ajustado para conter os elementos injetados pelo JS */
 .activity-title {
     font-size: 1.45rem;
     font-weight: 700;
@@ -673,7 +659,6 @@ body,
     font-weight: 500;
 }
 
-/* Card Amarelo de Próxima Atividade */
 .next-activity-card {
     background: #fffdf5;
     border-left: 4px solid #f59e0b;
@@ -1060,4 +1045,53 @@ body.focus-mode-active .next-activity-card {
 
 .btn-logout-modal:hover {
     background: #fef2f2;
+}
+
+/* ==========================================================================
+   🚀 ATUALIZAÇÕES PARA O 'MEU DIA' (EDITÁVEL)
+   ========================================================================== */
+.meu-dia-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: 100% !important;
+    margin-top: 10px !important;
+}
+
+.activity-item {
+    background: #ffffff !important;
+    padding: 16px !important;
+    border-radius: 12px !important;
+    border: 1px solid #e2e8f0 !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02) !important;
+    transition: all 0.2s ease !important;
+}
+
+.activity-item:hover {
+    border-color: var(--primary-color) !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05) !important;
+}
+
+.item-actions {
+    display: flex !important;
+    gap: 8px !important;
+}
+
+.btn-action {
+    background: #f1f5f9 !important;
+    border: none !important;
+    padding: 8px !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    font-size: 14px !important;
+    color: #64748b !important;
+    transition: all 0.2s !important;
+}
+
+.btn-action:hover {
+    background: var(--primary-light) !important;
+    color: var(--primary-color) !important;
 }
