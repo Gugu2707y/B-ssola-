@@ -1,106 +1,351 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>🧭 Bússola - Dashboard</title>
-
-  <link rel="stylesheet" href="css/style.css"/>
-  
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>B-SSOLA — Minha Agenda</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
+<body class="dashboard-page">
 
-<body>
-
-<div class="dashboard-container">
-
-  <header class="dash-header">
-    <div class="header-user-info">
-      <div class="user-avatar-wrapper">
-        <div class="compass-avatar">
-          <div class="compass-pointer"></div>
-          <div class="north">N</div>
-          <div class="south">S</div>
+  <!-- ======= HEADER ======= -->
+  <header class="dashboard-header">
+    <div class="header-top">
+      <div class="header-greeting">
+        <h1 id="greeting-text">Olá! Bem-vindo(a) de volta</h1>
+        <div class="header-date-row">
+          <span class="header-date-text">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span id="header-date"></span>
+          </span>
+          <div class="nav-day-row">
+            <button class="nav-btn" id="prev-day" title="Dia anterior">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="today-btn" id="today-btn">Hoje</button>
+            <button class="nav-btn" id="next-day" title="Próximo dia">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
         </div>
       </div>
-      <div class="user-text">
-        <h2>Olá, <span id="welcomeUser">Usuário</span>!</h2>
-        <div class="current-full-date" id="textFullDate">
-          <span class="material-icons-round">calendar_today</span> Carregando data...
+
+      <div class="header-controls">
+        <!-- Edit Mode -->
+        <div class="toggle-group">
+          <label for="edit-toggle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            Editar
+          </label>
+          <label class="switch">
+            <input type="checkbox" id="edit-toggle">
+            <span class="switch-slider"></span>
+          </label>
         </div>
+        <!-- Focus Mode -->
+        <div class="toggle-group">
+          <label for="focus-toggle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            Foco
+          </label>
+          <label class="switch">
+            <input type="checkbox" id="focus-toggle">
+            <span class="switch-slider"></span>
+          </label>
+        </div>
+        <!-- Settings -->
+        <button class="icon-btn" id="settings-btn" title="Configurações" aria-label="Configurações">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        </button>
+        <!-- Logout -->
+        <button class="icon-btn icon-btn--danger" id="logout-btn" title="Sair da conta" aria-label="Sair">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        </button>
       </div>
     </div>
 
-    <div class="header-actions">
-      <button class="settings-trigger-btn" title="Configurar">
-        <span class="material-icons-round">settings</span>
+    <!-- Localização atual -->
+    <div class="location-banner" id="location-banner">
+      <div class="location-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <div>
+        <div class="location-label">Você está agora em:</div>
+        <div class="location-value" id="location-value">Sala 12 — Matemática</div>
+      </div>
+    </div>
+
+    <!-- Navegação semanal -->
+    <div class="week-nav">
+      <button class="week-nav-btn" id="prev-week" title="Semana anterior">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
-      
-      <label class="checkbox-btn-wrapper">
-        <input type="checkbox" id="btn-foco">
-        <span class="custom-checkbox-btn">
-          <span class="material-icons-round icon-check">visibility_off</span> Foco
-        </span>
-      </label>
-      
-      <button class="logout-btn" onclick="window.location.href='index.html'" title="Sair">
-        <span class="material-icons-round">logout</span>
+      <div class="week-days" id="week-days"></div>
+      <button class="week-nav-btn" id="next-week" title="Próxima semana">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
     </div>
   </header>
 
-  <div class="status-alert-banner" id="statusBanner">
-    <span class="material-icons-round header-alert-icon">info</span>
-    <span id="bannerText">Carregando status...</span>
-  </div>
+  <!-- ======= MAIN CONTENT ======= -->
+  <main id="main-content">
 
-  <div class="week-nav-container">
-    <button class="week-arrow"><span class="material-icons-round">chevron_left</span></button>
-    <div class="week-days-grid" id="weekGrid">
+    <!-- Feriado -->
+    <div id="holiday-view" class="holiday-view hidden">
+      <div class="holiday-icon-big">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.05 11.95C21.05 18.16 12 23 12 23S2.95 18.16 2.95 11.95a9.053 9.053 0 0 1 18.1 0z"/><circle cx="12" cy="10" r="4"/></svg>
       </div>
-    <button class="week-arrow"><span class="material-icons-round">chevron_right</span></button>
-  </div>
-
-  <div class="app-container" style="align-items: flex-start; gap: 20px; padding: 0; max-width: 100%;">
-
-    <div style="flex: 2; display: flex; flex-direction: column; gap: 14px;">
-
-      <div class="current-activity-card">
-        <span class="card-tag tag-now">AGORA</span>
-        <h2 class="activity-title" id="currentSubjectName">Verificando...</h2>
-        <p class="activity-subtitle" id="currentSubjectMeta">--</p>
-
-        <div style="height: 6px; background: #e2e8f0; border-radius: 10px; overflow: hidden; margin: 16px 0 8px 0;">
-          <div style="height: 100%; width: 0%; background: #3b82f6; transition: width 0.4s ease;" id="currentProgressFill"></div>
-        </div>
-
-        <p class="timer-status-text" id="timeLeftText">--</p>
+      <h2 id="holiday-title">Hoje é Feriado!</h2>
+      <p class="holiday-name" id="holiday-name"></p>
+      <p class="holiday-desc" id="holiday-desc">Aproveite o seu dia de descanso! Sem atividades escolares programadas para hoje.</p>
+      <div class="holiday-date-box">
+        <div class="holiday-date-label">Data selecionada:</div>
+        <div class="holiday-date-value" id="holiday-date"></div>
       </div>
-
-      <div class="next-activity-card">
-        <span class="tag-next">
-          <span class="material-icons-round tag-icon">fast_forward</span> PRÓXIMA ATIVIDADE
-        </span>
-        <h3 class="next-activity-title" id="nextSubjectName">--</h3>
-        <div class="next-activity-meta" id="nextSubjectMeta">--</div>
-      </div>
-
     </div>
 
-    <div class="current-activity-card" style="flex: 1; min-width: 280px; margin-bottom: 0;">
-      <span class="card-tag tag-now" style="background: #f1f5f9; color: #475569;">
-        <span class="material-icons-round" style="font-size: 12px; vertical-align: middle;">schedule</span> GRADE
-      </span>
-      <div id="timelineList" style="margin-top: 10px;">
+    <!-- Vista diária -->
+    <div id="day-view" class="dashboard-body">
+      <!-- Coluna principal -->
+      <div class="main-col" style="display:flex;flex-direction:column;gap:16px">
+
+        <!-- Atividade atual -->
+        <div class="card">
+          <div class="card-title">
+            <div class="card-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            </div>
+            Agora
+            <span style="margin-left:auto;display:flex;align-items:center;gap:5px;color:var(--text-light);font-size:.875em;font-weight:400">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:15px;height:15px"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span id="current-clock"></span>
+            </span>
+          </div>
+          <div class="activity-name" id="current-name">Matemática</div>
+          <div class="activity-meta" id="current-meta"></div>
+          <div class="progress-label">
+            <span>Progresso da aula</span>
+            <span id="progress-pct">65%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width:65%"></div>
+          </div>
+          <p class="progress-hint" id="progress-hint">Faltam aproximadamente 17 minutos</p>
         </div>
+
+        <!-- Próxima atividade -->
+        <div class="next-card">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+            <div class="next-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+            </div>
+            <span style="font-size:.9em;font-weight:500">A seguir</span>
+          </div>
+          <div class="next-name" id="next-name">Intervalo</div>
+          <div class="activity-meta" id="next-meta"></div>
+        </div>
+
+        <!-- Aviso de mudança -->
+        <div class="changes-card" id="changes-card">
+          <div class="changes-header">
+            <div class="changes-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <strong>Mudanças no Horário</strong>
+          </div>
+          <div id="changes-list"></div>
+        </div>
+      </div>
+
+      <!-- Sidebar: timeline do dia -->
+      <div id="sidebar">
+        <div class="card" style="position:sticky;top:20px">
+          <div class="timeline-header">
+            <div class="card-title" style="margin-bottom:0">
+              <div class="card-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+              Meu Dia
+            </div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <span class="timeline-badge" id="activities-badge">6 atividades</span>
+              <button class="icon-btn hidden" id="add-class-sidebar" title="Adicionar atividade" style="width:32px;height:32px;background:var(--primary);color:#fff">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="timeline-list mt-4" id="timeline-list">
+            <div class="timeline-line"></div>
+          </div>
+
+          <div class="timeline-summary" id="timeline-summary"></div>
+        </div>
+      </div>
     </div>
 
+    <!-- Vista semanal -->
+    <div id="week-view" class="weekly-view hidden">
+      <div class="weekly-header">
+        <div class="weekly-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Minha Semana
+        </div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <span style="font-size:.875em;color:var(--text-light)">Planeje sua rotina semanal</span>
+          <button class="btn btn-primary hidden" id="add-class-weekly" style="padding:8px 16px;font-size:.875em">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Nova Aula
+          </button>
+        </div>
+      </div>
+      <div class="day-tabs" id="day-tabs"></div>
+      <div class="schedule-list" id="weekly-list"></div>
+    </div>
+  </main>
+
+  <!-- ======= MODAL: CONFIGURAÇÕES ======= -->
+  <div class="modal-overlay" id="settings-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06A1.65 1.65 0 0 0 15 19.4a1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Configurações
+        </h2>
+        <button class="modal-close" id="settings-close" aria-label="Fechar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <!-- Cor do tema -->
+      <div class="modal-section">
+        <div class="modal-section-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><circle cx="6.5" cy="12.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+          Cor do Tema
+        </div>
+        <div class="theme-grid">
+          <button class="theme-swatch active" data-theme="blue"  style="background:#4299e1" title="Azul"></button>
+          <button class="theme-swatch"        data-theme="green" style="background:#48bb78" title="Verde"></button>
+          <button class="theme-swatch"        data-theme="purple"style="background:#9f7aea" title="Roxo"></button>
+          <button class="theme-swatch"        data-theme="orange"style="background:#ed8936" title="Laranja"></button>
+        </div>
+        <p class="theme-hint" id="theme-hint">Selecionado: Azul</p>
+      </div>
+
+      <!-- Tamanho do texto -->
+      <div class="modal-section">
+        <div class="modal-section-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" y1="20" x2="15" y2="20"/><line x1="12" y1="4" x2="12" y2="20"/></svg>
+          Tamanho do Texto
+        </div>
+        <div class="font-options">
+          <button class="font-option" data-size="small"  style="font-size:.875em">Pequeno</button>
+          <button class="font-option active" data-size="medium" style="font-size:1em">Médio</button>
+          <button class="font-option" data-size="large"  style="font-size:1.125em">Grande</button>
+        </div>
+      </div>
+
+      <!-- Sons -->
+      <div class="modal-section">
+        <div class="modal-section-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          Sons e Avisos
+        </div>
+        <div class="setting-row">
+          <span>Ativar sons de notificação</span>
+          <label class="switch">
+            <input type="checkbox" id="sound-toggle" checked>
+            <span class="switch-slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div style="padding:14px;border-radius:var(--radius-md);background:var(--primary-bg);border:2px solid var(--primary-lighter);margin-bottom:20px;font-size:.875em;color:var(--primary-dark)">
+        💡 Personalize sua experiência para deixar o aplicativo do jeito que você mais gosta!
+      </div>
+
+      <button class="btn btn-danger btn-full" id="settings-logout">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Sair da Conta
+      </button>
+    </div>
   </div>
 
-</div>
+  <!-- ======= MODAL: ADICIONAR/EDITAR AULA ======= -->
+  <div class="modal-overlay" id="class-modal">
+    <div class="modal modal-lg">
+      <div class="modal-header">
+        <h2 id="class-modal-title">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Nova Aula
+        </h2>
+        <button class="modal-close" id="class-modal-close" aria-label="Fechar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
 
-<script type="module" src="./js/dashboard.js"></script>
-<script type="module" src="./js/feriados.js"></script>
+      <form id="class-form" class="auth-form" style="gap:16px" novalidate>
+        <input type="hidden" id="class-edit-day">
+        <input type="hidden" id="class-edit-index" value="-1">
+
+        <div class="form-group">
+          <label for="class-subject">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            Matéria
+          </label>
+          <input type="text" id="class-subject" placeholder="Ex: Matemática, Português, Arte..." required>
+        </div>
+
+        <div class="form-group">
+          <label for="class-time">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            Horário
+          </label>
+          <input type="text" id="class-time" placeholder="Ex: 08:00 - 08:50" required>
+        </div>
+
+        <div class="form-group">
+          <label for="class-room">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Sala
+          </label>
+          <input type="text" id="class-room" placeholder="Ex: Sala 12, Laboratório..." required>
+        </div>
+
+        <div class="form-group">
+          <label for="class-teacher">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Professor(a) <span style="font-size:.8em;color:var(--text-light)">(opcional)</span>
+          </label>
+          <input type="text" id="class-teacher" placeholder="Ex: Prof. Maria">
+        </div>
+
+        <div class="form-group" id="class-day-group">
+          <label for="class-day">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Dia da Semana
+          </label>
+          <select id="class-day">
+            <option value="Segunda">Segunda-feira</option>
+            <option value="Terça">Terça-feira</option>
+            <option value="Quarta">Quarta-feira</option>
+            <option value="Quinta">Quinta-feira</option>
+            <option value="Sexta">Sexta-feira</option>
+          </select>
+        </div>
+
+        <div class="modal-actions" style="margin-top:8px">
+          <button type="button" class="btn btn-ghost" id="class-cancel">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="class-submit">Adicionar Aula</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/feriados.js"></script>
+  <script src="js/dashboard.js"></script>
 </body>
 </html>
