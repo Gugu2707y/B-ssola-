@@ -1,109 +1,106 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>Minha Rotina</title>
-<link rel="stylesheet" href="css/style.css">
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🧭 Bússola - Dashboard</title>
+
+  <link rel="stylesheet" href="css/style.css"/>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 </head>
+
 <body>
+
 <div class="dashboard-container">
-  <!-- HEADER -->
+
   <header class="dash-header">
     <div class="header-user-info">
-      <div class="user-avatar-wrapper"><div class="compass-avatar"><span class="north">N</span><div class="compass-pointer"></div><span class="south">S</span></div></div>
+      <div class="user-avatar-wrapper">
+        <div class="compass-avatar">
+          <div class="compass-pointer"></div>
+          <div class="north">N</div>
+          <div class="south">S</div>
+        </div>
+      </div>
       <div class="user-text">
-        <h2 id="userName">Olá, gugu2707y! <span style="font-weight:400;color:#475569">Bem-vindo(a) de volta</span></h2>
-        <p class="current-full-date"><span class="material-icons-round">calendar_today</span> <span id="textFullDate">--</span></p>
+        <h2>Olá, <span id="welcomeUser">Usuário</span>!</h2>
+        <div class="current-full-date" id="textFullDate">
+          <span class="material-icons-round">calendar_today</span> Carregando data...
+        </div>
       </div>
     </div>
+
     <div class="header-actions">
-      <label class="checkbox-btn-wrapper">
-        <input type="checkbox" id="chkEditar">
-        <span class="custom-checkbox-btn"><span class="material-icons-round icon-check">edit</span> Editar</span>
-      </label>
-      <button class="custom-checkbox-btn" id="btnAbrirEditor" style="border:none;cursor:pointer">
-        <span class="material-icons-round icon-check">add_task</span> Configurar Matérias
+      <button class="settings-trigger-btn" title="Configurar">
+        <span class="material-icons-round">settings</span>
       </button>
+      
       <label class="checkbox-btn-wrapper">
-        <input type="checkbox" id="chkFoco">
-        <span class="custom-checkbox-btn"><span class="material-icons-round icon-check">center_focus_strong</span> Foco</span>
+        <input type="checkbox" id="btn-foco">
+        <span class="custom-checkbox-btn">
+          <span class="material-icons-round icon-check">visibility_off</span> Foco
+        </span>
       </label>
-      <button class="settings-trigger-btn" id="btnAbrirConfig"><span class="material-icons-round">settings</span></button>
-      <button class="logout-btn" onclick="location.href='index.html'"><span class="material-icons-round">logout</span></button>
+      
+      <button class="logout-btn" onclick="window.location.href='index.html'" title="Sair">
+        <span class="material-icons-round">logout</span>
+      </button>
     </div>
   </header>
 
-  <!-- AVISO LOCALIZAÇÃO -->
-  <div class="status-alert-banner" id="statusAtual">
-    <span class="material-icons-round header-alert-icon">place</span>
-    <span class="emoji-pin">📍</span>
-    <span id="statusTexto">Carregando...</span>
+  <div class="status-alert-banner" id="statusBanner">
+    <span class="material-icons-round header-alert-icon">info</span>
+    <span id="bannerText">Carregando status...</span>
   </div>
 
-  <!-- NAVEGAÇÃO SEMANAL -->
   <div class="week-nav-container">
-    <button class="week-arrow" id="btnPrevWeek"><span class="material-icons-round">chevron_left</span></button>
-    <div class="week-days-grid" id="weekGrid"></div>
-    <button class="week-arrow" id="btnNextWeek"><span class="material-icons-round">chevron_right</span></button>
-  </div>
-
-  <!-- CONTEÚDO DINÂMICO -->
-  <div id="mainContent" style="display:grid;grid-template-columns:2fr 1fr;gap:14px;"></div>
-</div>
-
-<!-- MODAL CONFIG -->
-<div class="modal-overlay hidden" id="modalConfig">
-  <div class="modal-card">
-    <div class="modal-header">
-      <h3><span class="material-icons-round header-settings-icon">settings</span> Configurações</h3>
-      <button class="close-modal-btn" onclick="fecharModal('modalConfig')"><span class="material-icons-round">close</span></button>
-    </div>
-    <div class="setting-section">
-      <p class="section-label"><span class="material-icons-round">palette</span> Tema</p>
-      <div class="theme-options-grid">
-        <button class="theme-dot dot-blue active" data-theme=""></button>
-        <button class="theme-dot dot-green" data-theme="theme-green"></button>
-        <button class="theme-dot dot-purple" data-theme="theme-purple"></button>
-        <button class="theme-dot dot-orange" data-theme="theme-orange"></button>
+    <button class="week-arrow"><span class="material-icons-round">chevron_left</span></button>
+    <div class="week-days-grid" id="weekGrid">
       </div>
-    </div>
-    <div class="setting-section">
-      <p class="section-label"><span class="material-icons-round">text_fields</span> Tamanho do texto</p>
-      <div class="text-size-selector">
-        <button class="size-btn" data-size="size-small">Pequeno</button>
-        <button class="size-btn active" data-size="size-medium">Médio</button>
-        <button class="size-btn" data-size="size-large">Grande</button>
+    <button class="week-arrow"><span class="material-icons-round">chevron_right</span></button>
+  </div>
+
+  <div class="app-container" style="align-items: flex-start; gap: 20px; padding: 0; max-width: 100%;">
+
+    <div style="flex: 2; display: flex; flex-direction: column; gap: 14px;">
+
+      <div class="current-activity-card">
+        <span class="card-tag tag-now">AGORA</span>
+        <h2 class="activity-title" id="currentSubjectName">Verificando...</h2>
+        <p class="activity-subtitle" id="currentSubjectMeta">--</p>
+
+        <div style="height: 6px; background: #e2e8f0; border-radius: 10px; overflow: hidden; margin: 16px 0 8px 0;">
+          <div style="height: 100%; width: 0%; background: #3b82f6; transition: width 0.4s ease;" id="currentProgressFill"></div>
+        </div>
+
+        <p class="timer-status-text" id="timeLeftText">--</p>
       </div>
+
+      <div class="next-activity-card">
+        <span class="tag-next">
+          <span class="material-icons-round tag-icon">fast_forward</span> PRÓXIMA ATIVIDADE
+        </span>
+        <h3 class="next-activity-title" id="nextSubjectName">--</h3>
+        <div class="next-activity-meta" id="nextSubjectMeta">--</div>
+      </div>
+
     </div>
-    <button class="btn-logout-modal" onclick="location.href='index.html'">
-      <span class="material-icons-round">logout</span> Sair da conta
-    </button>
+
+    <div class="current-activity-card" style="flex: 1; min-width: 280px; margin-bottom: 0;">
+      <span class="card-tag tag-now" style="background: #f1f5f9; color: #475569;">
+        <span class="material-icons-round" style="font-size: 12px; vertical-align: middle;">schedule</span> GRADE
+      </span>
+      <div id="timelineList" style="margin-top: 10px;">
+        </div>
+    </div>
+
   </div>
+
 </div>
 
-<!-- MODAL EDITOR DE MATÉRIAS -->
-<div class="modal-overlay hidden" id="modalEditor">
-  <div class="modal-card editor-modal">
-    <div class="modal-header">
-      <h3>📚 Configurar Matérias</h3>
-      <button class="close-modal-btn" onclick="fecharModal('modalEditor')"><span class="material-icons-round">close</span></button>
-    </div>
-    <div class="editor-tabs" id="editorTabs"></div>
-    <div class="editor-form">
-      <input class="full" id="inMateria" placeholder="Matéria (ex: Matemática)">
-      <input id="inProf" placeholder="Professor">
-      <input id="inSala" placeholder="Sala">
-      <input type="time" id="inIni" value="08:00">
-      <input type="time" id="inFim" value="08:50">
-    </div>
-    <button class="btn-primary" onclick="addAula()"><span class="material-icons-round">add</span> Adicionar</button>
-    <div id="listaAulasEditor" style="margin-top:16px;max-height:240px;overflow-y:auto"></div>
-  </div>
-</div>
-
-<script src="js/feriados.js"></script>
-<script src="js/dashboard.js"></script>
+<script type="module" src="./js/dashboard.js"></script>
+<script type="module" src="./js/feriados.js"></script>
 </body>
 </html>
