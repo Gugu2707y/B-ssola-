@@ -3,199 +3,97 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>🧭 Bússola</title>
+  <title>🧭 Bússola - Dashboard</title>
 
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="css/style.css"/>
+  
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background: #f6f8fc;
-      margin: 0;
-      color: #0f172a;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: auto;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    /* HEADER */
-    .header {
-      background: white;
-      padding: 16px;
-      border-radius: 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .header h2 {
-      margin: 0;
-      font-size: 18px;
-    }
-
-    .header small {
-      color: #64748b;
-    }
-
-    .actions {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .btn {
-      border: none;
-      background: #eef2ff;
-      padding: 8px 10px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 600;
-    }
-
-    .logout {
-      background: #fee2e2;
-      color: #b91c1c;
-    }
-
-    /* STATUS */
-    .banner {
-      background: #e0f2fe;
-      padding: 14px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 500;
-    }
-
-    /* NAV SEMANA */
-    .week {
-      display: flex;
-      gap: 8px;
-      justify-content: space-between;
-    }
-
-    .day {
-      flex: 1;
-      background: white;
-      padding: 10px;
-      border-radius: 12px;
-      text-align: center;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    .day.active {
-      background: #2563eb;
-      color: white;
-    }
-
-    /* CARDS */
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-
-    .card {
-      background: white;
-      padding: 14px;
-      border-radius: 14px;
-    }
-
-    .progress {
-      height: 6px;
-      background: #e2e8f0;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-top: 10px;
-    }
-
-    .bar {
-      height: 100%;
-      width: 0%;
-      background: #2563eb;
-    }
-
-    /* LADO */
-    .side {
-      background: white;
-      padding: 14px;
-      border-radius: 14px;
-    }
-
-    .layout {
-      display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 14px;
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 </head>
 
 <body>
 
-<div class="container">
+<div class="dashboard-container">
 
-  <!-- HEADER -->
-  <div class="header">
-    <div>
-      <h2>Olá, <span id="welcomeUser">Usuário</span>!</h2>
-      <small id="textFullDate">Carregando data...</small>
+  <header class="dash-header">
+    <div class="header-user-info">
+      <div class="user-avatar-wrapper">
+        <div class="compass-avatar">
+          <div class="compass-pointer"></div>
+          <div class="north">N</div>
+          <div class="south">S</div>
+        </div>
+      </div>
+      <div class="user-text">
+        <h2>Olá, <span id="welcomeUser">Usuário</span>!</h2>
+        <div class="current-full-date" id="textFullDate">
+          <span class="material-icons-round">calendar_today</span> Carregando data...
+        </div>
+      </div>
     </div>
 
-    <div class="actions">
-      <button class="btn">Configurar</button>
-      <button class="btn">Foco</button>
-      <button class="btn logout" onclick="window.location.href='index.html'">Sair</button>
+    <div class="header-actions">
+      <button class="settings-trigger-btn" title="Configurar">
+        <span class="material-icons-round">settings</span>
+      </button>
+      
+      <label class="checkbox-btn-wrapper">
+        <input type="checkbox" id="btn-foco">
+        <span class="custom-checkbox-btn">
+          <span class="material-icons-round icon-check">visibility_off</span> Foco
+        </span>
+      </label>
+      
+      <button class="logout-btn" onclick="window.location.href='index.html'" title="Sair">
+        <span class="material-icons-round">logout</span>
+      </button>
     </div>
-  </div>
+  </header>
 
-  <!-- STATUS -->
-  <div class="banner" id="statusBanner">
-    <span>ℹ️</span>
+  <div class="status-alert-banner" id="statusBanner">
+    <span class="material-icons-round header-alert-icon">info</span>
     <span id="bannerText">Carregando status...</span>
   </div>
 
-  <!-- SEMANA -->
-  <div class="week" id="weekGrid"></div>
+  <div class="week-nav-container">
+    <button class="week-arrow"><span class="material-icons-round">chevron_left</span></button>
+    <div class="week-days-grid" id="weekGrid">
+      </div>
+    <button class="week-arrow"><span class="material-icons-round">chevron_right</span></button>
+  </div>
 
-  <!-- CONTEÚDO -->
-  <div class="layout">
+  <div class="app-container" style="align-items: flex-start; gap: 20px; padding: 0; max-width: 100%;">
 
-    <!-- ESQUERDA -->
-    <div class="grid">
+    <div style="flex: 2; display: flex; flex-direction: column; gap: 14px;">
 
-      <div class="card">
-        <h3>📘 Agora</h3>
-        <h2 id="currentSubjectName">Verificando...</h2>
-        <small id="currentSubjectMeta">--</small>
+      <div class="current-activity-card">
+        <span class="card-tag tag-now">AGORA</span>
+        <h2 class="activity-title" id="currentSubjectName">Verificando...</h2>
+        <p class="activity-subtitle" id="currentSubjectMeta">--</p>
 
-        <div class="progress">
-          <div class="bar" id="currentProgressFill"></div>
+        <div style="height: 6px; background: #e2e8f0; border-radius: 10px; overflow: hidden; margin: 16px 0 8px 0;">
+          <div style="height: 100%; width: 0%; background: #3b82f6; transition: width 0.4s ease;" id="currentProgressFill"></div>
         </div>
 
-        <small id="timeLeftText">--</small>
+        <p class="timer-status-text" id="timeLeftText">--</p>
       </div>
 
-      <div class="card">
-        <h3>🍕 Próxima</h3>
-        <h3 id="nextSubjectName">--</h3>
-        <small id="nextSubjectMeta">--</small>
+      <div class="next-activity-card">
+        <span class="tag-next">
+          <span class="material-icons-round tag-icon">fast_forward</span> PRÓXIMA ATIVIDADE
+        </span>
+        <h3 class="next-activity-title" id="nextSubjectName">--</h3>
+        <div class="next-activity-meta" id="nextSubjectMeta">--</div>
       </div>
 
     </div>
 
-    <!-- DIREITA -->
-    <div class="side">
-      <h3>📅 Grade</h3>
-      <div id="timelineList"></div>
+    <div class="current-activity-card" style="flex: 1; min-width: 280px; margin-bottom: 0;">
+      <span class="card-tag tag-now" style="background: #f1f5f9; color: #475569;">
+        <span class="material-icons-round" style="font-size: 12px; vertical-align: middle;">schedule</span> GRADE
+      </span>
+      <div id="timelineList" style="margin-top: 10px;">
+        </div>
     </div>
 
   </div>
