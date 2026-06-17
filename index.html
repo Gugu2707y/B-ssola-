@@ -1,110 +1,49 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>B-ssola - Login</title>
-    <!-- Importação de ícones do Google Material Symbols -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <!-- Importação da fonte do Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Vinculação correta do CSS na mesma raiz -->
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Login — Minha Rotina</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 </head>
 <body>
-    <div class="app-container">
-        <!-- Lado Esquerdo: Mensagem de Boas-vindas e Recursos -->
-        <div class="info-sidebar">
-            <h1 class="main-title">Organize seu dia com tranquilidade</h1>
-            <p class="main-subtitle">Um espaço pensado para você acompanhar suas atividades de forma clara e previsível.</p>
-            
-            <div class="features-list">
-                <div class="feature-item">
-                    <div class="feature-icon icon-blue">
-                        <span class="material-symbols-outlined">schedule</span>
-                    </div>
-                    <div class="feature-text">
-                        <h3>Acompanhe o tempo</h3>
-                        <p>Veja quanto tempo falta para cada atividade</p>
-                    </div>
-                </div>
-
-                <div class="feature-item">
-                    <div class="feature-icon icon-orange">
-                        <span class="material-symbols-outlined">notifications</span>
-                    </div>
-                    <div class="feature-text">
-                        <h3>Avisos claros</h3>
-                        <p>Saiba com antecedência sobre mudanças</p>
-                    </div>
-                </div>
-
-                <div class="feature-item">
-                    <div class="feature-icon icon-lightblue">
-                        <span class="material-symbols-outlined">visibility</span>
-                    </div>
-                    <div class="feature-text">
-                        <h3>Modo Foco</h3>
-                        <p>Menos distrações quando precisar</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Lado Direito: Formulário de Login (Card Flutuante) -->
-        <div class="auth-card-wrapper">
-            <div class="auth-card">
-                <div class="logo-area">
-                    <div class="logo-box">
-                        <span class="material-symbols-outlined logo-main-icon">calendar_month</span>
-                        <div class="logo-badge">
-                            <span class="material-symbols-outlined">star</span>
-                        </div>
-                    </div>
-                </div>
-
-                <h2 class="auth-title">Bem-vindo(a)!</h2>
-                <p class="auth-subtitle">Vamos começar o seu dia</p>
-
-               <form id="loginForm">
-             <div class="input-group">
-                <label><span class="material-symbols-outlined label-icon">person</span> Nome ou E-mail</label>
-             <input type="text" id="loginEmail" placeholder="Digite seu nome ou e-mail" required>
-             </div>
-
-            <div class="input-group">
-              <label><span class="material-symbols-outlined label-icon">lock</span> Senha</label>
-              <div class="password-wrapper">
-                 <input type="password" id="loginPassword" placeholder="Digite sua senha" required>
-            <span class="material-symbols-outlined toggle-password" onclick="togglePasswordVisibility('loginPassword')">visibility</span>
-              </div>
-         </div>
-
-    <button type="submit" class="btn-primary">
-        <span class="material-symbols-outlined btn-icon">login</span> Entrar com Segurança
-    </button>
-</form>
-
-                <div class="auth-footer">
-                    <p>Não tem uma conta? <a href="cadastro.html" class="footer-link">Criar conta</a></p>
-                </div>
-
-                <div class="security-banner">
-                    <span class="material-symbols-outlined banner-icon">wb_sunny</span>
-                    <div class="banner-text">
-                        <h4>Espaço seguro e organizado</h4>
-                        <p>Aqui você encontra tudo sobre suas atividades do dia de forma clara e simples</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="current-date-badge">
-                <span class="material-symbols-outlined">calendar_today</span> terça-feira, 02 de junho de 2026
-            </div>
-        </div>
+<div class="app-container">
+  <div class="info-sidebar">
+    <h1 class="main-title">Sua rotina escolar, organizada.</h1>
+    <p class="main-subtitle">Acompanhe aulas, intervalos e feriados em um só lugar.</p>
+    <div class="features-list">
+      <div class="feature-item"><div class="feature-icon icon-blue"><span class="material-icons-round">schedule</span></div><div class="feature-text"><h3>Grade dinâmica</h3><p>Veja o que está rolando agora</p></div></div>
+      <div class="feature-item"><div class="feature-icon icon-orange"><span class="material-icons-round">notifications</span></div><div class="feature-text"><h3>Avisos</h3><p>Mudanças e feriados em destaque</p></div></div>
+      <div class="feature-item"><div class="feature-icon icon-lightblue"><span class="material-icons-round">center_focus_strong</span></div><div class="feature-text"><h3>Modo Foco</h3><p>Concentre-se na aula atual</p></div></div>
     </div>
-   <script type="module" src="./js/login.js"></script>
+  </div>
+
+  <div class="auth-card-wrapper">
+    <div class="auth-card">
+      <div class="logo-area"><div class="logo-box"><span class="material-icons-round logo-main-icon">school</span><div class="logo-badge"><span class="material-icons-round">bolt</span></div></div></div>
+      <h2 class="auth-title">Bem-vindo de volta</h2>
+      <p class="auth-subtitle">Entre com suas credenciais</p>
+      <form id="loginForm">
+        <div class="input-group">
+          <label><span class="material-icons-round label-icon">person</span> Usuário</label>
+          <input type="text" id="loginUser" placeholder="seu_usuario" required>
+        </div>
+        <div class="input-group">
+          <label><span class="material-icons-round label-icon">lock</span> Senha</label>
+          <div class="password-wrapper">
+            <input type="password" id="loginPass" placeholder="••••••••" required>
+            <span class="toggle-password material-icons-round" onclick="togglePass()">visibility</span>
+          </div>
+        </div>
+        <div class="form-actions-link"><a href="recuperar.html" class="forgot-password">Esqueci a senha</a></div>
+        <button type="submit" class="btn-primary"><span class="material-icons-round">login</span> Entrar</button>
+      </form>
+      <p class="auth-footer">Não tem conta? <a href="cadastro.html" class="footer-link">Cadastre-se</a></p>
+    </div>
+  </div>
+</div>
+<script src="js/login.js"></script>
 </body>
 </html>
