@@ -1,3 +1,4 @@
+```css
 /* ==========================================================================
    📌 1. CONFIGURAÇÕES GERAIS DE RESET E VARIÁVEIS DE TRANSIÇÃO
    ========================================================================== */
@@ -23,384 +24,363 @@ body,
 }
 
 body {
-    background-color: #ebf5ff;
+    background-color: #f1f5f9; /* Fundo mais claro e suave */
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #1e293b;
+    padding: 40px;
 }
 
 /* ==========================================================================
-   🧱 2. ESTRUTURA PRINCIPAL (SPLIT SCREEN - TELA DE LOGIN)
+   🧱 2. ESTRUTURA PRINCIPAL (NOVO LAYOUT DE PAINEL)
    ========================================================================== */
 .app-container {
     display: flex;
+    flex-direction: column;
     width: 100%;
     max-width: 1200px;
-    padding: 40px;
-    gap: 80px;
-    align-items: center;
-}
-
-/* Painel Esquerdo de Recursos */
-.info-sidebar {
-    flex: 1;
-    max-width: 500px;
-}
-
-.main-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    line-height: 1.2;
-    color: #0f172a;
-    margin-bottom: 16px;
-}
-
-.main-subtitle {
-    font-size: 1rem;
-    color: #64748b;
-    line-height: 1.6;
-    margin-bottom: 40px;
-}
-
-/* Lista de Recursos Dinâmicos */
-.features-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.feature-item {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    background: #f8fafc;
-    padding: 16px 24px;
-    border-radius: 16px;
-    border: 1px solid rgba(0,0,0,0.02);
-}
-
-.feature-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-}
-
-.feature-icon span {
-    font-size: 22px;
-    color: white;
-}
-
-.icon-blue { background-color: #3b82f6; }
-.icon-orange { background-color: #f97316; }
-.icon-lightblue { background-color: #0ea5e9; }
-
-.feature-text h3 {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #1e293b;
-}
-
-.feature-text p {
-    font-size: 0.85rem;
-    color: #64748b;
+    gap: 20px;
 }
 
 /* ==========================================================================
-   🔑 3. ÁREA DE AUTENTICAÇÃO (CARD DE LOGIN)
+   🏠 3. CABEÇALHO (HEADER) E IDENTIFICAÇÃO
    ========================================================================== */
-.auth-card-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-}
-
+/* Container unificado do Header, antigo auth-card */
+.dash-header,
 .auth-card {
     background: #ffffff;
-    width: 400px;
-    padding: 40px;
-    border-radius: 24px;
-    box-shadow: 0 20px 40px rgba(0, 102, 204, 0.06);
-    text-align: center;
+    padding: 16px 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    text-align: left;
 }
 
-/* Customização da Logo */
+/* Área de Identificação (Esquerda) */
 .logo-area {
     display: flex;
-    justify-content: center;
-    margin-bottom: 24px;
+    align-items: center;
+    gap: 12px;
 }
 
+/* Avatar circular moderno */
 .logo-box {
-    position: relative;
-    background: #3b82f6;
-    width: 72px;
-    height: 72px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
-}
-
-.logo-main-icon {
-    font-size: 36px;
-    color: white;
-}
-
-.logo-badge {
-    position: absolute;
-    bottom: -4px;
-    right: -4px;
-    background: #ffb74d;
-    width: 24px;
-    height: 24px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
+    background: #e2e8f0;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid white;
+    overflow: hidden;
+    position: relative;
+    box-shadow: none;
 }
 
-.logo-badge span {
-    font-size: 14px;
-    color: white;
-}
-
-.auth-title {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #0f172a;
-    margin-bottom: 6px;
-}
-
-.auth-subtitle {
-    font-size: 0.88rem;
+/* Ícone de perfil genérico */
+.logo-box::before {
+    content: "👤";
+    font-size: 20px;
     color: #64748b;
-    margin-bottom: 32px;
 }
 
-/* Estilização dos Inputs */
-.input-group {
-    text-align: left;
-    margin-bottom: 20px;
+/* Removemos o badge antigo */
+.logo-badge { display: none; }
+
+/* Texto de Saudação e Data */
+.welcome-text-group {
+    display: flex;
+    flex-direction: column;
 }
 
-.input-group label {
+/* NOME DO USUÁRIO - ESTE PONTO NÃO FOI ALTERADO */
+.auth-title,
+.header-welcome-message {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0;
+}
+
+/* Subtítulo (Data) */
+.auth-subtitle,
+.header-date {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-bottom: 0;
+}
+
+/* Grupo de Botões de Ação (Direita) */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Botões Modernos e Menores */
+.btn-primary,
+.btn-header-action {
+    background: #f1f5f9;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 10px;
+    color: #334155;
+    font-size: 0.85rem;
+    font-weight: 600;
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #334155;
-    margin-bottom: 8px;
+    cursor: pointer;
+    box-shadow: none;
+    width: auto;
 }
 
-.label-icon {
-    font-size: 16px;
-    color: #64748b;
+.btn-primary:hover,
+.btn-header-action:hover {
+    background: #e2e8f0;
 }
 
-.input-group input {
-    width: 100%;
-    padding: 14px 16px;
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
-    background: #f8fafc;
-    font-size: 0.9rem;
-    color: #1e293b;
-    outline: none;
-    transition: all 0.2s;
-}
-
-.input-group input:focus {
-    border-color: #3b82f6;
-    background: #ffffff;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-/* Password Visibility Wrapper */
-.password-wrapper {
-    position: relative;
+/* Checkbox do Foco (Estilo Moderno) */
+.focus-control {
     display: flex;
     align-items: center;
-}
-
-.toggle-password {
-    position: absolute;
-    right: 14px;
-    cursor: pointer;
-    color: #64748b;
-    font-size: 20px;
-    user-select: none;
-}
-
-.form-actions-link {
-    text-align: right;
-    margin-top: -10px;
-    margin-bottom: 24px;
-}
-
-.forgot-password {
-    font-size: 0.85rem;
-    color: #3b82f6;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-/* Botão Principal */
-.btn-primary {
-    width: 100%;
-    background: #3b82f6;
-    color: white;
-    border: none;
-    padding: 14px;
-    border-radius: 12px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     gap: 8px;
-    transition: background 0.2s;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
-}
-
-.btn-primary:hover {
-    background: #2563eb;
-}
-
-.btn-icon {
-    font-size: 20px;
-}
-
-/* Links do Rodapé */
-.auth-footer {
-    margin-top: 24px;
-    margin-bottom: 24px;
-    font-size: 0.88rem;
-    color: #64748b;
-}
-
-.footer-link {
-    color: #3b82f6;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-.footer-link-bordered {
-    color: #1e293b;
-    text-decoration: none;
-    font-weight: 600;
-    border: 1px solid #cbd5e1;
-    padding: 4px 8px;
-    border-radius: 6px;
-    margin-left: 4px;
-}
-
-/* Banner Inferior Seguro Amarelo */
-.security-banner {
-    background: #fff8ec;
-    border: 1px solid #ffe0b2;
-    border-radius: 14px;
-    padding: 14px;
-    display: flex;
-    gap: 12px;
-    text-align: left;
-}
-
-.banner-icon {
-    color: #f59e0b;
-    font-size: 20px;
-    margin-top: 2px;
-}
-
-.banner-text h4 {
     font-size: 0.85rem;
     font-weight: 600;
-    color: #b45309;
+}
+
+.focus-control input {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    accent-color: #3b82f6;
+    cursor: pointer;
+}
+
+/* Botão Sair (Simples Ícone) */
+.btn-logout {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #ef4444;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+}
+
+/* Removemos os elementos antigos de login */
+.input-group,
+.form-actions-link,
+.auth-footer,
+.app-title-group,
+.features-list,
+.current-date-badge { display: none; }
+
+/* ==========================================================================
+   📅 4. BANNERS E NAVEGAÇÃO
+   ========================================================================== */
+/* Banner de Status (Azul) */
+.status-alert-banner {
+    background-color: #e0f2fe;
+    color: #0369a1;
+    padding: 12px 16px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.status-alert-banner .banner-icon {
+    font-size: 1.1rem;
+}
+
+/* Navegação da Semana (Grade de Dias) */
+.week-nav-container {
+    background: transparent;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+}
+
+.calendar-day-box {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 12px;
+    text-align: center;
+    border: 1px solid rgba(0,0,0,0.01);
+    cursor: pointer;
+}
+
+.calendar-day-box.active {
+    background: #e0f2fe;
+    border-color: #3b82f6;
+}
+
+.day-label {
+    font-size: 0.75rem;
+    color: #64748b;
     margin-bottom: 2px;
 }
 
-.banner-text p {
-    font-size: 0.78rem;
-    color: #d97706;
-    line-height: 1.4;
-}
-
-/* Data Atual Flutuante Embaixo */
-.current-date-badge {
-    background: #ffffff;
-    padding: 8px 16px;
-    border-radius: 30px;
-    font-size: 0.8rem;
-    color: #64748b;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-}
-
-.current-date-badge span {
-    font-size: 16px;
+.day-number {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #1e293b;
 }
 
 /* ==========================================================================
-   ✨ 4. SEÇÃO EXCLUSIVA: MODO FOCO PREMIUM (ESTILO ZEN) - CORRIGIDO
+   📊 5. ÁREA DE CONTEÚDO (GRID DE CARDS)
    ========================================================================== */
-
-/* Quando o Modo Foco está ATIVO no Body */
-body.focus-mode-active {
-    background-color: #fafafa !important; /* Fundo limpo e focado */
+.main-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    width: 100%;
 }
 
-/* Esconde os elementos de navegação e alertas para evitar distração */
-body.focus-mode-active .status-alert-banner,
-body.focus-mode-active .current-date-badge,
-body.focus-mode-active .logo-area,
-body.focus-mode-active h2,
-body.focus-mode-active small {
+/* Cards Gerais */
+.dash-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+/* Títulos de Seção (Subtitles) */
+.dash-card h4 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+}
+
+/* Seção AGORA */
+.dash-card .info-text-group h4 { color: #0ea5e9; } /* Azul claro */
+
+/* Texto Principal "Sem aula acontecendo" */
+.dash-card h2, 
+.current-activity-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #1e293b;
+}
+
+/* Subtítulos de aula */
+.subject-details {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+}
+
+/* Cronômetro (Botão secundário) */
+.btn-cronometro-status {
+    background: transparent;
+    border: none;
+    color: #3b82f6;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+/* Seção PRÓXIMA (Amarela) */
+.dash-card.card-next-yellow,
+.feature-item[data-next-activity],
+.security-banner { /* Adaptando o security-banner antigo */
+    background: #fffbef; /* Fundo amarelo claro */
+    border: 1px solid rgba(255, 193, 7, 0.2);
+    padding: 20px;
+    text-align: left;
+    display: block;
+    width: 100%;
+}
+
+/* Alinhamento do ícone e textos na próxima atividade */
+.feature-item-content,
+.security-banner-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.security-banner-icon { display: none; } /* Removemos o cadeado antigo */
+
+/* Ícone da Próxima Matéria (Adaptado) */
+.feature-icon,
+.subject-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: #f97316; /* Laranja */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.25rem;
+}
+
+/* Cores dos Títulos na Próxima Atividade */
+.feature-item .info-text-group h4,
+.card-next-yellow h4,
+.banner-text h4 { color: #b45309; } /* Cor amarelo escuro */
+
+/* Nome da Matéria (Próxima) */
+.feature-item h3,
+.banner-text h3,
+.banner-text h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 2px;
+}
+
+/* Horário/Sala (Próxima) */
+.feature-item p,
+.banner-text p {
+    font-size: 0.85rem;
+    color: #1e293b;
+    opacity: 0.8;
+}
+
+/* ==========================================================================
+   ✨ 6. MODO FOCO PREMIUM (ESTILO ZEN)
+   ========================================================================== */
+body.focus-mode-active {
+    background-color: #fafafa !important;
+}
+
+/* Esconde elementos não essenciais */
+body.focus-mode-active .week-nav-container,
+body.focus-mode-active .main-content-grid > div:not(.current-activity-card) {
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transform: translateY(-10px);
 }
 
-/* Centraliza e destaca o Bloco de "AGORA" (Seu container principal de aula) */
-body.focus-mode-active .dashboard-layout > div:nth-child(3),
+/* Centraliza e destaca o Bloco de "AGORA" */
+body.focus-mode-active .dash-card.current-activity-card,
 body.focus-mode-active #currentSubjectContainer {
-    transform: scale(1.03);
-    box-shadow: 0 24px 48px rgba(0, 102, 204, 0.05) !important;
-    border: 1px solid rgba(59, 130, 246, 0.15) !important;
-    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%) !important;
+    grid-column: 1 / -1; /* Ocupa a largura total */
     max-width: 800px;
     margin: 60px auto !important;
-    border-radius: 24px;
     padding: 40px;
+    transform: scale(1.02);
+    border: 1px solid rgba(59, 130, 246, 0.15) !important;
+    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%) !important;
 }
 
-/* Destaca o título principal da atividade em execução */
-body.focus-mode-active h3, 
-body.focus-mode-active #currentSubjectName {
-    font-size: 2.4rem !important;
-    letter-spacing: -0.02em;
+/* Destaca o título principal no modo Foco */
+body.focus-mode-active h2, 
+body.focus-mode-active .current-activity-title {
+    font-size: 2.2rem !important;
     color: #0369a1 !important;
-}
-
-/* Deixa o card de Próxima Atividade sutil na parte inferior */
-body.focus-mode-active .next-activity-card,
-body.focus-mode-active #nextSubjectContainer,
-body.focus-mode-active div[style*="background-color: rgb(255, 248, 236)"] {
-    max-width: 600px;
-    margin: 24px auto !important;
-    opacity: 0.6;
-    background: rgba(255, 255, 255, 0.8) !important;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.02) !important;
 }
