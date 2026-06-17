@@ -1,96 +1,122 @@
-// ... (mantenha seu firebaseConfig e inicializações acima)
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.14.0/firebase-auth.js";
 
-// Helper prático
+const firebaseConfig = { /* MANTENHA SEU FIREBASE CONFIG AQUI */ };
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
 const $ = (id) => document.getElementById(id);
 
-let dataAtual = new Date(); // Inicia com a data real
+// Estado inicial
+let dataAtual = new Date(); 
 
-// ⚙️ ESTRUTURA DE DADOS PERSISTENTE
-// Salvamos no localStorage por índice de dia (1=Seg, 2=Ter, etc)
-let configSemana = JSON.parse(localStorage.getItem('configEscolar')) || {
-    1: { nome: "Segunda", aulas: [{nome: "Português", hora: "08:00 - 08:50", sala: "12"}] },
-    2: { nome: "Terça", aulas: [{nome: "Matemática", hora: "08:50 - 09:40", sala: "12"}] },
+// Estrutura de dados: Dias 0-6 (Dom-Sáb)
+let configuracoesSemanais = JSON.parse(localStorage.getItem('configSemana')) || {
+    0: { nome: "Domingo", aulas: [] },
+    1: { nome: "Segunda", aulas: [{nome: "Português", hora: "08:00", sala: "12"}] },
+    2: { nome: "Terça", aulas: [{nome: "Matemática", hora: "08:50", sala: "12"}] },
     3: { nome: "Quarta", aulas: [] },
     4: { nome: "Quinta", aulas: [] },
-    5: { nome: "Sexta", aulas: [] }
+    5: { nome: "Sexta", aulas: [] },
+    6: { nome: "Sábado", aulas: [] }
 };
 
-function salvarConfiguracao(diaIndex, novaListaAulas) {
-    configSemana[diaIndex].aulas = novaListaAulas;
-    localStorage.setItem('configEscolar', JSON.stringify(configSemana));
+function initDashboard(user) {
+    atualizarDashboard();
 }
 
-function initDashboard(user) {
-    const welcome = $("welcomeUser");
-    if (welcome) welcome.innerText = user.email.split("@")[0];
-
+function atualizarDashboard() {
     atualizarDataUI();
     gerarSemana();
-    atualizarBanner();
-    gerarTimeline();
+    renderizarTimeline();
     atualizarCardsPrincipais();
 }
 
 function atualizarDataUI() {
     const fullDate = $("textFullDate");
     if (!fullDate) return;
-    const dataFormatada = dataAtual.toLocaleDateString("pt-BR", {
-        weekday: "long", year: "numeric", month: "long", day: "numeric"
-    });
-    fullDate.innerHTML = `<span class="material-icons-round">calendar_today</span> ${dataFormatada}`;
+    
+    // Cálculo de dias de diferença
+    const hoje = new Date();
+    hoje.setHours(0,0,0,0);
+    const alvo = new Date(dataAtual);
+    alvo.setHours(0,0,0,0);
+    
+    const diffTime = alvo - hoje;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    let avisoRelativo = "";
+    if (diffDays === 0) avisoRelativo = "(Hoje)";
+    else if (diffDays === 1) avisoRelativo = "(Amanhã)";
+    else if (diffDays > 1) avisoRelativo = `(Daqui a ${diffDays} dias)`;
+    else if (diffDays === -1) avisoRelativo = "(Ontem)";
+
+    const dataFormatada = dataAtual.toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long" });
+    fullDate.innerHTML = `<span class="material-icons-round">calendar_today</span> ${dataFormatada} <small>${avisoRelativo}</small>`;
 }
 
-// 📆 GERADOR DA GRADE DA SEMANA (Calendário Semanal)
 function gerarSemana() {
     const week = $("weekGrid");
     if (!week) return;
     week.innerHTML = "";
 
+    // Centraliza na semana da dataAtual
     let base = new Date(dataAtual);
-    let day = base.getDay();
-    let diff = day === 0 ? -6 : 1 - day;
-    base.setDate(base.getDate() + diff);
+    base.setDate(base.getDate() - base.getDay() + 1); // Força começar na segunda
 
     for (let i = 0; i < 5; i++) {
         const d = new Date(base);
         d.setDate(base.getDate() + i);
-
         const el = document.createElement("div");
-        el.className = "day-tab";
-        if (d.toDateString() === dataAtual.toDateString()) el.classList.add("active");
-
-        el.innerHTML = `
-            <span class="day-name">${d.toLocaleDateString("pt-BR", { weekday: "short" }).replace('.', '')}</span>
-            <span class="day-num">${d.getDate()}</span>
-        `;
-
-        el.onclick = () => {
-            dataAtual = d;
-            initDashboard(auth.currentUser);
-        };
+        el.className = `day-tab ${d.toDateString() === dataAtual.toDateString() ? 'active' : ''}`;
+        el.innerHTML = `<span class="day-name">${d.toLocaleDateString("pt-BR", { weekday: "short" }).replace('.', '')}</span><span class="day-num">${d.getDate()}</span>`;
+        el.onclick = () => { dataAtual = d; atualizarDashboard(); };
         week.appendChild(el);
     }
 }
 
-// 📋 RENDERIZADOR DA GRADE HORÁRIA (Coluna Direita)
-function gerarTimeline() {
+function renderizarTimeline() {
     const timeline = $("timelineList");
     if (!timeline) return;
     timeline.innerHTML = "";
-
+    
     const diaIndex = dataAtual.getDay();
-    // Pega a configuração específica para este dia da semana (1-5)
-    const rotinaDoDia = configSemana[diaIndex]?.aulas || [];
+    const rotina = configuracoesSemanais[diaIndex]?.aulas || [];
 
-    rotinaDoDia.forEach(item => {
+    if (rotina.length === 0) {
+        timeline.innerHTML = "<p>Nenhuma aula programada.</p>";
+        return;
+    }
+
+    rotina.forEach((item, index) => {
         const div = document.createElement("div");
-        div.style.marginBottom = "16px";
-        div.innerHTML = `
-            <strong style="display: block; font-size: 0.95rem; color: #1e293b;">${item.nome}</strong>
-            <div style="font-size: 0.8rem; color: #64748b;">${item.hora} • Sala ${item.sala}</div>
-        `;
+        div.innerHTML = `<strong>${item.nome}</strong><br><small>${item.hora} - Sala ${item.sala}</small>`;
         timeline.appendChild(div);
     });
 }
 
-// ... (Mantenha as funções atualizarCardsPrincipais, EventListeners e Firebase)
+// 🛠️ FUNÇÃO PARA ADICIONAR/ALTERAR AULAS (Use no seu Modal)
+function adicionarAula(diaIndex, novaAula) {
+    configuracoesSemanais[diaIndex].aulas.push(novaAula);
+    localStorage.setItem('configSemana', JSON.stringify(configuracoesSemanais));
+    atualizarDashboard();
+}
+
+function atualizarCardsPrincipais() {
+    const dia = dataAtual.getDay();
+    // Exemplo de lógica de férias/feriado (Pode ser expandida)
+    if (dia === 0 || dia === 6) {
+        $("currentSubjectName").innerText = "Fim de Semana / Férias";
+    } else {
+        $("currentSubjectName").innerText = "Rotina Escolar Ativa";
+    }
+}
+
+// Navegação de dias
+$("btnPrevDay")?.addEventListener("click", () => { dataAtual.setDate(dataAtual.getDate() - 1); atualizarDashboard(); });
+$("btnNextDay")?.addEventListener("click", () => { dataAtual.setDate(dataAtual.getDate() + 1); atualizarDashboard(); });
+
+onAuthStateChanged(auth, (user) => {
+    if (user) initDashboard(user);
+    else window.location.href = "index.html";
+});
